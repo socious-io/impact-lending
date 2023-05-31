@@ -1,0 +1,238 @@
+.login-modal-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.login-modal-page-wrapper {
+  width: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.login-modal-content {
+  gap: 12px;
+  display: flex;
+  padding: 20px 16px 0;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: var(--dl-color-base-white);
+}
+.login-modal-featuredicon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  position: relative;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(234, 236, 240, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: var(--dl-color-base-white);
+}
+.login-modal-lock01 {
+  top: 12px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+}
+.login-modal-textandsupportingtext {
+  gap: 12px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.login-modal-text {
+  color: var(--dl-color-gray-9002);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: 28px;
+}
+.login-modal-alert {
+  gap: 12px;
+  display: flex;
+  padding: 16px;
+  align-self: stretch;
+  align-items: flex-start;
+  border-color: rgba(0, 74, 70, 0.6000000238418579);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 12px;
+  flex-direction: column;
+  background-color: var(--dl-color-primary-25);
+}
+.login-modal-content1 {
+  gap: 12px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.login-modal-textandsupportingtext1 {
+  gap: 8px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.login-modal-infocircle {
+  width: 20px;
+  height: 20px;
+}
+.login-modal-text01 {
+  color: var(--dl-color-gray-9002);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: 20px;
+}
+.login-modal-text06 {
+  color: var(--dl-color-gray-600);
+  height: auto;
+  align-self: stretch;
+  text-align: left;
+  line-height: 20px;
+}
+.login-modal-buttonclose-x {
+  display: flex;
+  padding: 10px;
+  z-index: 1;
+  overflow: hidden;
+  align-items: center;
+  border-radius: 8px;
+  justify-content: center;
+}
+.login-modal-xclose {
+  width: 24px;
+  height: 24px;
+}
+.login-modal-paddingbottom {
+  height: 20px;
+  display: flex;
+  z-index: 2;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.login-modal-content2 {
+  gap: 12px;
+  display: flex;
+  padding: 0 16px;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.login-modal-socialbutton {
+  text-decoration: none;
+}
+.login-modal-socialicon {
+  width: 24px;
+  height: 24px;
+}
+.login-modal-text07 {
+  color: var(--dl-color-base-white);
+  height: auto;
+  font-style: normal;
+  text-align: left;
+  line-height: 24px;
+  font-stretch: normal;
+}
+.login-modal-frame-modalactions1 {
+  display: flex;
+  padding: 24px 0 0;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.login-modal-dividerwrap {
+  width: 343px;
+  height: 17px;
+  align-self: stretch;
+}
+.login-modal-content3 {
+  gap: 12px;
+  display: flex;
+  padding: 0 16px 16px;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.login-modal-wrap {
+  gap: 12px;
+  display: flex;
+  padding: 16px;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: flex-start;
+  border-radius: 8px;
+  flex-direction: column;
+  background-color: var(--dl-color-gray-50);
+}
+.login-modal-text09 {
+  color: var(--dl-color-gray-9002);
+  height: auto;
+  align-self: stretch;
+  text-align: center;
+  line-height: 28px;
+}
+.login-modal-actions {
+  gap: 12px;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.login-modal-link {
+  display: contents;
+}
+.login-modal-mobileappstorebadge {
+  width: 135px;
+  height: 40px;
+  text-decoration: none;
+}
+.login-modal-link1 {
+  display: contents;
+}
+.login-modal-mobileappstorebadge1 {
+  width: 135px;
+  height: 40px;
+  text-decoration: none;
+}
+@media (max-width: 991px) {
+  .login-modal-frame-modalheader {
+    position: relative;
+  }
+  .login-modal-buttonclose-x {
+    top: 12px;
+    right: 12px;
+    position: absolute;
+  }
+}
+@media (max-width: 767px) {
+  .login-modal-text {
+    color: var(--dl-color-gray-900);
+  }
+  .login-modal-text01 {
+    color: var(--dl-color-gray-900);
+    font-size: 14px;
+    font-family: Inter;
+    line-height: 20px;
+  }
+  .login-modal-buttonclose-x {
+    top: 12px;
+    right: 12px;
+    position: absolute;
+  }
+  .login-modal-dividerwrap {
+    width: 100%;
+  }
+}

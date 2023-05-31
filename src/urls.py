@@ -17,7 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from src.apps.site.views import index
+from src.apps.users.views import login, login_modal, auth_proofspace
+
 urlpatterns = [
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('admin/', admin.site.urls),
+    path('login', login),
+    path('login/modal', login_modal),
+    path('auth/proofspace', auth_proofspace),
+    path('proofspace', index)
 ]

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="english">
+  <head>
+    <title>login-modal - exported project</title>
+    <meta property="og:title" content="login-modal - exported project" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {
+        line-height: 1.15;
+      }
+      body {
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+      }
+      p,
+      li,
+      ul,
+      pre,
+      div,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      figure,
+      blockquote,
+      figcaption {
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        background-color: transparent;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      [type="button"],
+      [type="reset"],
+      [type="submit"] {
+        -webkit-appearance: button;
+      }
+      button::-moz-focus-inner,
+      [type="button"]::-moz-focus-inner,
+      [type="reset"]::-moz-focus-inner,
+      [type="submit"]::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
+      button:-moz-focus,
+      [type="button"]:-moz-focus,
+      [type="reset"]:-moz-focus,
+      [type="submit"]:-moz-focus {
+        outline: 1px dotted ButtonText;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      input {
+        padding: 2px 4px;
+      }
+      img {
+        display: block;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <style>
+      ::-webkit-input-placeholder {
+        color: #667085;
+      }
+    </style>
+    <link rel="stylesheet" href="/statics/css/style.css" />
+  </head>
+  <body>
+    <div>
+      <link href="/statics/css/login-modal.css" rel="stylesheet" />
+
+      <div class="login-modal-container">
+        <div class="login-modal-page-wrapper page-wrapper">
+          <div class="blur"></div>
+          <div class="modal">
+            <div class="modal_container">
+              <div class="modal_header login-modal-frame-modalheader">
+                <div class="login-modal-content">
+                  <div class="login-modal-featuredicon featured-icon">
+                    <img
+                      alt="lock01I763"
+                      src="public/external/lock01i763-kp2.svg"
+                      class="login-modal-lock01"
+                    />
+                  </div>
+                  <div class="login-modal-textandsupportingtext">
+                    <span class="login-modal-text TextlgSemibold">
+                      Sign in with your Decentralized ID
+                    </span>
+                    <div class="login-modal-alert">
+                      <div class="login-modal-content1">
+                        <div class="login-modal-textandsupportingtext1">
+                          <img
+                            alt="infocircle7637"
+                            src="public/external/infocircle7637-k2xn.svg"
+                            class="login-modal-infocircle"
+                          />
+                          <span class="login-modal-text01 TextsmRegular">
+                            <span>
+                              We’ve partnered with ProofSpace/Atala Prism
+                              Decentralized ID for secure sign-ins and sign-ups,
+                              providing users with top-notch privacy and
+                              control.
+                            </span>
+                            <br />
+                            <br />
+                            <span>
+                              ProofSpace is an identification verification tool
+                              used by security-conscious entities such as the
+                              United Nations Development Program, the World
+                              Health Organization, and Microsoft.
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="login-modal-text06 TextsmRegular">
+                      To sign in click the button to continue to the ProofSpace
+                      app.
+                    </span>
+                  </div>
+                </div>
+                <button class="login-modal-buttonclose-x">
+                  <img
+                    alt="xcloseI763"
+                    src="public/external/xclosei763-d67.svg"
+                    class="login-modal-xclose"
+                  />
+                </button>
+                <div class="login-modal-paddingbottom"></div>
+              </div>
+              <div class="modal_actions">
+                <div class="login-modal-content2">
+                  <a
+                    rel="noreferrer noopener"
+                    class="login-modal-socialbutton social-button"
+                    href="https://platform.proofspace.id/oauth/authorization?client_id=8DXffTYfukQsk3NZZP3ypS&amp;redirect_uri=http://localhost:8000/auth/proofspace&amp;response_type=code"
+                  >
+                    <img
+                      alt="SocialiconI763"
+                      src="public/external/socialiconi763-3mh.svg"
+                      class="login-modal-socialicon"
+                    />
+                    <span class="login-modal-text07 TextmdSemibold">
+                      <span>Sign in with ProofSpace</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="login-modal-frame-modalactions1 modal_actions">
+                <img
+                  alt="Dividerwrap7637"
+                  src="public/external/dividerwrap7637-qow2.svg"
+                  class="login-modal-dividerwrap"
+                />
+                <div class="login-modal-content3">
+                  <div class="login-modal-wrap">
+                    <span class="login-modal-text09 TextlgSemibold">
+                      <span>Get ProofSpace app</span>
+                    </span>
+                    <div class="login-modal-actions">
+                      <a
+                        href="https://apps.apple.com/us/app/proofspace/id1512258409"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="login-modal-link"
+                      >
+                        <img
+                          alt="Mobileappstorebadge7637"
+                          src="public/external/mobileappstorebadge7637-ngj9.svg"
+                          class="login-modal-mobileappstorebadge"
+                        />
+                      </a>
+                      <a
+                        href="https://play.google.com/store/apps/details?id=io.zaka.app&amp;pli=1"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="login-modal-link1"
+                      >
+                        <img
+                          alt="Mobileappstorebadge7637"
+                          src="public/external/mobileappstorebadge7637-1fvq.svg"
+                          class="login-modal-mobileappstorebadge1"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

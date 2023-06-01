@@ -1,0 +1,65 @@
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/profile.css" rel="stylesheet" />
+{% endblock%} {% block container %}
+<main class="profile-main">
+  <div class="profile-content">
+    <div class="profile-header">
+      <div class="profile-textandsupportingtext">
+        <span class="profile-text DisplaymdSemibold">
+          Tell us about yourself
+        </span>
+        <span class="profile-text01 TextmdRegular">
+          <span>
+            This information is used to get started. It does not leave our
+            systems and isn’t shared with anyone outside our platform.
+          </span>
+        </span>
+      </div>
+    </div>
+    <form class="profile-section" method="post">
+      {% csrf_token %}
+      <div class="profile-form">
+        <div class="profile-inputfield">
+          <div class="profile-inputwithlabel">
+            <span class="profile-text03 TextsmMedium">
+              <span>Username</span>
+            </span>
+            {{form.username}} {{form.username.errors}}
+          </div>
+        </div>
+        <div class="profile-inputfield1">
+          <div class="profile-inputwithlabel1">
+            <span class="profile-text05 TextsmMedium">
+              <span>First Name (optional)</span>
+            </span>
+            {{form.first_name}} {{form.first_name.errors}}
+          </div>
+        </div>
+        <div class="profile-inputfield2">
+          <div class="profile-inputwithlabel2">
+            <span class="profile-text07 TextsmMedium">
+              <span>Last Name (optional)</span>
+            </span>
+            {{form.last_name}} {{form.last_name.errors}}
+          </div>
+        </div>
+        <div class="profile-inputdropdown">
+          <div class="profile-inputwithlabel3">
+            <span class="profile-text09 TextsmMedium">
+              <span>Location (optional)</span>
+            </span>
+            {{form.country}} {{form.country.errors}}
+          </div>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <div class="primary-button-container primary-button-root-class-name">
+          <button class="primary" type="submit">
+            <span class="primary-button-text TextmdSemibold"> Continue </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import configparser
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,17 +32,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/login'
 
 with open('private_key.pem', 'r') as f:
     OIDC_RSA_PRIVATE_KEY = f.read()
 
-OAUTH2_PROVIDER = {
-    "OIDC_ENABLED": True,
-    "OIDC_RSA_PRIVATE_KEY": OIDC_RSA_PRIVATE_KEY,
-}
-
-
 # Application definition
+
+AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -53,17 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # thirparty lbs
-    'oauth2_provider',
 
     # localapps
     'src.apps.site',
     'src.apps.users',
     'src.apps.projects',
-]
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'oauth2_provider.backends.OAuth2Backend',
 ]
 
 MIDDLEWARE = [

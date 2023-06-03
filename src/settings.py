@@ -15,7 +15,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# APPS_DIR = os.path.join(BASE_DIR, 'src', 'apps')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-gnt8h@vhaexv--fn_xv2@ab^-3e$(mfsn&2_lu_5txd7gr32h8
 config = configparser.ConfigParser()
 config.read('config.cnf')
 
-
+APPEND_SLASH = False
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'src.middlewares.RemoveSlashMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

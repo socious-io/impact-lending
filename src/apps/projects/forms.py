@@ -17,7 +17,7 @@ class ProjectFormScreen1(forms.Form):
 
     description = forms.CharField(widget=forms.Textarea)
 
-    country = CountryField().formfield(
+    location = CountryField().formfield(
         required=False,
         widget=forms.Select(attrs={
             'class': 'profile-select input'

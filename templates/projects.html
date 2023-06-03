@@ -1,0 +1,25 @@
+{% for project in paginate %}
+    <p>{{ project.title }}</p>
+    <p>{{ project.subtitle }}</p>
+    <p>{{ project.description }}</p>
+    <p>{{ project.location }}</p>
+{% endfor %}
+
+
+<div class="pagination">
+  <span class="step-links">
+      {% if paginate.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ paginate.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ paginate.number }} of {{ paginate.paginator.num_pages }}.
+      </span>
+
+      {% if paginate.has_next %}
+          <a href="?page={{ paginate.next_page_number }}">next</a>
+          <a href="?page={{ paginate.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>

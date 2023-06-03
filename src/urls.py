@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from src.apps.site.views import index
+from src.apps.site.views import index, connect
 from src.apps.users.views import auth_login, auth_login_modal, auth_proofspace, update_profile
+from src.apps.projects.views import create_project_screen_1
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +30,8 @@ urlpatterns = [
 
     path('users/profile/update', update_profile),
 
-    path('', index)
+    path('projects/create/1', create_project_screen_1),
+
+    path('', index),
+    path('connect', connect)
 ]

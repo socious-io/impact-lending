@@ -3,3 +3,5 @@ env/
 .env
 *.cnf
 *.pem
+node_modules/
+package-lock.json

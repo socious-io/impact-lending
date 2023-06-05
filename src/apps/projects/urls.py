@@ -3,7 +3,9 @@ from . import views
 
 
 urlpatterns = [
+    path('<uuid:project_id>', views.get_project),
     path('list', views.project_list),
-    path('create/1', views.create_project_1),
+    path('create', views.create_project),
     path('create/2', views.create_project_2),
+    path('create/3', views.create_project_3),
 ]

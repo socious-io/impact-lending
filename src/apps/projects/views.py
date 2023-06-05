@@ -1,8 +1,16 @@
+import uuid
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Project
-from .forms import ProjectForm,  ProjectFormScreen1, ProjectFormScreen2
+from .models import Project, Lend
+from .forms import ProjectFormScreen1, ProjectFormScreen2, ProjectFormScreen3
+
+
+@login_required
+def get_project(request, project_id):
+    print(project_id)
+    project = Project.objects.get(id=project_id)
+    return render(request, 'project.html', {'project': project, 'reach_goal_amount': Lend.reach_goal_amount(project)})
 
 
 @login_required
@@ -17,7 +25,7 @@ def project_list(request):
 
 
 @login_required
-def create_project_1(request):
+def create_project(request):
     if request.method == 'POST':
         form = ProjectFormScreen1(request.POST)
         if not form.is_valid():
@@ -40,7 +48,7 @@ def create_project_1(request):
 def create_project_2(request):
     data = request.session.get('project_data')
     if not data:
-        return redirect('/projects/create/1')
+        return redirect('/projects/create')
 
     if request.method == 'POST':
         form = ProjectFormScreen2(request.POST)
@@ -59,7 +67,27 @@ def create_project_2(request):
 
         project.save()
         request.session['project_data'] = None
-        return HttpResponse(project.id)
+        request.session['project_id'] = project.id.hex
+        return redirect('/projects/create/3')
 
     form = ProjectFormScreen2()
     return render(request, 'project_screen_2.html', {'form': form})
+
+
+@login_required
+def create_project_3(request):
+    id = request.session.get('project_id')
+    if not id:
+        return redirect('/projects/create/2')
+
+    project = Project.objects.filter(id=id).first()
+    if not project:
+        return redirect('/projects/create')
+
+    if request.method == 'POST':
+        project.status = project.STATUS_FUNDRAISING
+        project.save()
+        request.session['project_id'] = None
+        return HttpResponse('OK')
+
+    return render(request, 'project_screen_3.html', {'project': project})

@@ -21,6 +21,7 @@
     "@web3modal/ethereum": "^2.4.2",
     "@web3modal/html": "^2.4.2",
     "@web3modal/standalone": "^2.4.2",
+    "axios": "^1.4.0",
     "viem": "^0.3.48",
     "web3": "^1.10.0",
     "web3modal": "^1.9.12"

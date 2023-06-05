@@ -55,12 +55,12 @@ export const dappConfig= {
   testnet: [
     {
       chain: milkomedaTestnet,
-      contract: 'LENDING SMART CONTRACT',
+      contract: '0x99E4D5E1e5C19fbf7c671445BDcc1C8C2aa99885',
       tokens: [
         {
           name: 'USDC',
           symbol: 'USDC',
-          address: '0x95cEc3b0a113AEf23eaFA4eD1B48489806bF6C82',
+          address: '0xaa17B7F93fC67a72a8FeF86b02C8A2b330125dAA',
         },
       ],
     },
@@ -100,7 +100,348 @@ export const dappConfig= {
   ],
 
   abis: {
-    lending:[],
+    lending: [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "borrower",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "BorrowAction",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "lenderAddress",
+            "type": "address"
+          }
+        ],
+        "name": "LoanAction",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "goalAmount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "contract IERC20",
+            "name": "token",
+            "type": "address"
+          }
+        ],
+        "name": "ProjectCreateAction",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "_token",
+            "type": "address"
+          }
+        ],
+        "name": "addToken",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "_projectId",
+            "type": "string"
+          }
+        ],
+        "name": "borrow",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "_projectId",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_goalAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "_token",
+            "type": "address"
+          }
+        ],
+        "name": "createProject",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "_projectId",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "lending",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "borrowHistory",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "borrower",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "lendingHistory",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "lenderAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "projects",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "goalAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum Lending.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "token",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "validTokens",
+        "outputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "version",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ],
     token: [
       {
         constant: true,

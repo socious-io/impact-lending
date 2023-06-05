@@ -30,8 +30,8 @@ class ProjectFormScreen2(forms.Form):
     repayment_period = forms.IntegerField()
 
 
-class ProjectForm(forms.ModelForm):
-    class Meta:
-        model = Project
-        fields = ['title', 'subtitle', 'description',
-                  'location', 'loan_amount', 'repayment_period']
+class ProjectFormScreen3(forms.Form):
+    transaction_id = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'hide',
+        'id': 'project-transaction-id'
+    }))

@@ -1,9 +1,15 @@
-{% for project in paginate %}
-    <p>{{ project.title }}</p>
-    <p>{{ project.subtitle }}</p>
-    <p>{{ project.description }}</p>
-    <p>{{ project.location }}</p>
+<ul>
+{% for project in paginate %}    
+  <a href="/projects/{{project.id}}">
+    <li>    
+        <p>{{ project.title }}</p>
+        <p>{{ project.subtitle }}</p>
+        <p>{{ project.description }}</p>
+        <p>{{ project.location }}</p>    
+    </li>
+  </a>
 {% endfor %}
+<ul>
 
 
 <div class="pagination">

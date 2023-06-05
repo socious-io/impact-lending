@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import axios from 'axios';
 import {
   EthereumClient,
   w3mConnectors,
@@ -9,13 +10,14 @@ import { configureChains, createConfig } from "@wagmi/core";
 import { getAccount, watchAccount } from '@wagmi/core'
 import { dappConfig } from './dapp.config'
 
-
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 let web3;
 let connected = false;
-const NETWORKS = process.env.DAPP_ENV === 'mainet' ? dappConfig.mainet : dappConfig.testnet;
+const networks = process.env.DAPP_ENV === 'mainet' ? dappConfig.mainet : dappConfig.testnet;
 const projectId = dappConfig.walletConnetProjectId;
-const chains = NETWORKS.map((n) => n.chain);
+const chains = networks.map((n) => n.chain);
 
 
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
@@ -50,6 +52,25 @@ connectBtn.addEventListener("click", () => {
   web3modal.openModal();
 });
 
-document.getElementById("recheck").addEventListener("click", async () => {
-  console.log(await web3?.currentProvider, '************');
+
+
+document.getElementById("create-project").addEventListener("click", async () => {
+  const account = getAccount();
+  if (!account.isConnected) return alert('Please connect your wallet first');
+  const dataset = document.getElementById("project-data");
+  const id = dataset.getAttribute('data-id');
+  const amount = dataset.getAttribute('data-amount');
+
+  const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
+  await contract.methods
+    .createProject(id, amount, networks[0].tokens[0].address)
+    .send({from: account.address});
+
+  const response = await axios.post('/projects/create/3')
+  if (response.status == 200) window.location = '/projects/list'
 });
+
+
+document.getElementById("lend-action").addEventListener("click", async () => {
+  document.getElementById("lend-amount");
+})

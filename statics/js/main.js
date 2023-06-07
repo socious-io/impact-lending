@@ -9,6 +9,7 @@ import { Web3Modal } from "@web3modal/html";
 import { configureChains, createConfig } from "@wagmi/core";
 import { getAccount, watchAccount } from '@wagmi/core'
 import { dappConfig } from './dapp.config'
+import {walletConnectedView, walletDisconnectedView} from './view'
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -30,27 +31,30 @@ const wagmiConfig = createConfig({
 const ethereumClient = new EthereumClient(wagmiConfig, chains);
 const web3modal = new Web3Modal({ projectId }, ethereumClient);
 
-const connectBtn = document.getElementById("wallet-connect");
+const connectDiv = document.getElementById("wallet-connect");
 
 const connect = async (account) => {
   const provider = await account.connector.getProvider();
   web3 = new Web3(provider);
   connected = true;
-  connectBtn.textContent = 'disconnect'
+  connectDiv.innerHTML = walletConnectedView(account.address);
+  document.getElementById("wallet-connect-btn").addEventListener("click", () => {
+    web3modal.openModal()
+  })
 }
 
 const disconnect = async () => {
   connected = false;
-  connectBtn.textContent = 'connect'
+  connectDiv.innerHTML = walletDisconnectedView;
+  document.getElementById("wallet-connect-btn").addEventListener("click", () => {
+    web3modal.openModal()
+  })
 }
 
 watchAccount(async (account) => {
   account?.isConnected ? await connect(account) : await disconnect();
 });
 
-connectBtn.addEventListener("click", () => {
-  web3modal.openModal();
-});
 
 
 

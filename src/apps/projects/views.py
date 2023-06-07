@@ -35,10 +35,23 @@ def project_list(request):
 
 @login_required
 def create_project(request):
+
+    project = None
+    id = request.session.get('project_id')
+    if id:
+        project = Project.objects.get(id=id)
+
     if request.method == 'POST':
         form = ProjectFormScreen1(request.POST)
         if not form.is_valid():
             return render(request, 'project_screen_1.html', {'form': form}, status=400)
+
+        if project:
+            project.title = form.cleaned_data['title']
+            project.subtitle = form.cleaned_data['subtitle']
+            project.description = form.cleaned_data['description']
+            project.location = form.cleaned_data['location']
+            project.save()
 
         request.session['project_data'] = {
             'title': form.cleaned_data['title'],
@@ -48,8 +61,14 @@ def create_project(request):
         }
 
         return redirect('/projects/create/2')
-
-    form = ProjectFormScreen1()
+    form = ProjectFormScreen1(initial=request.session.get('project_data', {}))
+    if project:
+        form = ProjectFormScreen1(initial=dict(
+            title=project.title,
+            subtitle=project.subtitle,
+            description=project.description,
+            location=project.location
+        ))
     return render(request, 'project_screen_1.html', {'form': form})
 
 
@@ -59,10 +78,21 @@ def create_project_2(request):
     if not data:
         return redirect('/projects/create')
 
+    project = None
+    id = request.session.get('project_id')
+    if id:
+        project = Project.objects.get(id=id)
+
     if request.method == 'POST':
         form = ProjectFormScreen2(request.POST)
         if not form.is_valid():
             return render(request, 'project_screen_2.html', {'form': form})
+
+        if project:
+            project.loan_amount = form.cleaned_data['loan_amount']
+            project.repayment_period = form.cleaned_data['repayment_period']
+            project.save()
+            return redirect('/projects/create/3')
 
         project = Project(
             user=request.user,
@@ -80,6 +110,10 @@ def create_project_2(request):
         return redirect('/projects/create/3')
 
     form = ProjectFormScreen2()
+    if project:
+        form = ProjectFormScreen2(initial=dict(
+                                  loan_amount=project.loan_amount,
+                                  repayment_period=project.repayment_period))
     return render(request, 'project_screen_2.html', {'form': form})
 
 

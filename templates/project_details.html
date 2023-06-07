@@ -1,0 +1,221 @@
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/project-details.css" rel="stylesheet" />
+{% endblock%} {% block container %}
+
+  <main class="project-details-main main-wrapper">
+    <div class="project-details-section">
+      <div class="project-details-container2">
+        <div class="project-details-pageheader">
+          <a
+            href="/projects/list"
+            class="project-details-button TextsmSemibold button-link"
+          >
+            <img
+              alt="arrowleftI763"
+              src="/statics/img/arrowlefti763-80v.svg"
+              class="project-details-arrowleft"
+            />
+            <span class="project-details-text TextsmSemibold">
+              <span>Back to projects</span>
+            </span>
+          </a>
+          <div class="project-details-content">
+            <div class="project-details-textandsupportingtext">
+              <span class="project-details-text02 DisplayxsSemibold">
+                <span>{{project.title}}</span>
+              </span>
+              <span class="project-details-text04 TextmdRegular">
+                <span>
+                  {{project.subtitle}}
+                </span>
+              </span>
+            </div>
+            <div class="project-details-location">
+              <img
+                alt="markerpin017636"
+                src="/statics/img/markerpin017636-6dv.svg"
+                class="project-details-markerpin01"
+              />
+              <span class="project-details-text06 TextmdMedium">
+                <span>{{project.location.name}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-details-section1">
+      <div class="project-details-container3">
+        <div class="project-details-content1">
+          <div class="project-details-section2">
+            <div class="project-details-profile">
+              <div class="project-details-avatar">
+                <img
+                  alt="image"
+                  src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=200"
+                  class="project-details-image"
+                />
+              </div>
+              <div class="project-details-textandsupportingtext1">
+                <span class="project-details-text08 TextlgSemibold">
+                  Created by {{project.user.name}}
+                </span>
+                <div class="project-details-badge">
+                  <img
+                    alt="shieldtickI763"
+                    src="/statics/img/shieldticki763-wqvk.svg"
+                    class="project-details-shieldtick"
+                  />
+                  <span class="project-details-text09 TextsmMedium">
+                    <span>Identity verified</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-details-section3">
+      <div class="project-details-container4">
+        <div class="project-details-content2">
+          <div class="project-details-section4">
+            <span class="project-details-text11 TextxlMedium">
+              <span>More about this loan</span>
+            </span>
+            <span class="project-details-text13 TextmdRegular">
+              <span>
+                {{project.description}}
+              </span>
+            </span>
+          </div>
+          <div class="project-details-section5">
+            <div class="project-details-image1">
+              <img
+                alt="image"
+                src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1500"
+                class="project-details-image2"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-details-sidebar">
+      <div class="project-details-section6">
+        <div class="project-details-container5">
+          <div class="project-details-loan">
+            <div class="project-details-content3">
+              <div class="project-details-details">
+                <div class="project-details-detailswrap">
+                  <div class="project-details-textandsupportingtext2">
+                    <span class="project-details-text15 TextlgSemibold">
+                      <span>20 days</span>
+                    </span>
+                    <div class="project-details-textwrap">
+                      <span
+                        class="project-details-text17 TextsmRegular"
+                      >
+                        <span>Remaining</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="project-details-textandsupportingtext3">
+                    <span class="project-details-text19 TextlgSemibold">
+                      <span>{{project.loan_amount}} USDT</span>
+                    </span>
+                    <div class="project-details-textwrap1">
+                      <span
+                        class="project-details-text21 TextsmRegular"
+                      >
+                      <span>$ {{project.loan_amount}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-details-progress">
+                  <div class="project-details-progressbar">
+                    <div class="project-details-progressbar1">
+                      <div class="projects-search-progress1" style="max-width:{{project.reach_goal_percent}}%"></div>
+                    </div>
+                  </div>
+                  <div class="project-details-detailswrap1">
+                    <div class="project-details-textandicon">
+                      <span
+                        class="project-details-text23 TextsmRegular"
+                      >
+                      <span>{{project.reach_goal_percent}}% funded</span>
+                      </span>
+                    </div>
+                    <div class="project-details-textandicon1">
+                      <span
+                        class="project-details-text25 TextsmRegular"
+                      >
+                      <span>{{project.reach_goal_amount}} USDT to go</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-details-detailswrap2">
+                  <div class="project-details-textandicon2">
+                    <img
+                      alt="clockfastforwardI439"
+                      src="/statics/img/clockfastforwardi439-q9uo.svg"
+                      class="project-details-clockfastforward"
+                    />
+                    <span class="project-details-text27 TextmdMedium">
+                      <span>{{project.repayment_period}} months</span>
+                    </span>
+                  </div>
+                  <div class="project-details-textandicon3">
+                    <img
+                      alt="trendup01I439"
+                      src="/statics/img/trendup01i439-x8f.svg"
+                      class="project-details-trendup01"
+                    />
+                    <span class="project-details-text29 TextmdMedium">
+                      <span>1.3% monthly interest</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="project-details-inputfield">
+                  <div class="project-details-inputwithlabel">
+                    <span class="project-details-text31 TextsmMedium">
+                      <span>Contribution amount</span>
+                    </span>
+                    <div class="project-details-input">
+                      <div class="project-details-content4">
+                        <input
+                          type="text"
+                          placeholder="1000"
+                          class="project-details-textinput TextmdRegular"
+                        />
+                      </div>
+                      <div class="project-details-dropdown">
+                        <span
+                          class="project-details-text33 TextmdRegular"
+                        >
+                          <span>USDT</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="project-details-actions">
+                  <a
+                    href="/projects/{{project.id}}/lend"
+                    class="project-details-button1 TextmdSemibold button"
+                  >
+                    <span class="project-details-text35 TextmdSemibold">
+                      <span>Lend now</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}

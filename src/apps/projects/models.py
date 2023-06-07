@@ -1,5 +1,9 @@
 import uuid
+from datetime import datetime
+from django.conf import settings
 from django.db import models
+from django_countries.fields import CountryField
+from src.utils.crypto_trx_verify import verify_transaction
 from src.apps.users.models import User
 
 
@@ -21,11 +25,25 @@ class Project(models.Model):
     title = models.CharField(max_length=120)
     subtitle = models.TextField()
     description = models.TextField()
-    location = models.CharField(max_length=5, null=True)
+    location = CountryField(null=True)
     loan_amount = models.IntegerField()
     repayment_period = models.IntegerField()
+    reach_goal_amount = models.IntegerField(null=True)
     status = models.CharField(
         max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING)
+
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
+
+    @property
+    def reach_goal_percent(self):
+        return 100 - ((self.reach_goal_amount * 100) / self.loan_amount)
+
+    def save(self, *args, **kwargs):
+        if self.reach_goal_amount is None:
+            self.reach_goal_amount = self.loan_amount
+        self.updated_at = datetime.now()
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'projects'
@@ -47,24 +65,30 @@ class Lend(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
     amount = models.IntegerField()
     transaction_id = models.CharField(max_length=300)
-    refund_transaction_id = models.CharField(max_length=300)
+    refund_transaction_id = models.CharField(max_length=300, null=True)
 
     status = models.CharField(
         max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
-    @staticmethod
-    def reach_goal_amount(project):
-        loans = Lend.objects.filter(project_id=project.id).all()
-        amount = project.loan_amount
-        print(amount, '******************')
-        for loan in loans:
-            amount -= loan.amount
-
-        return amount
+    @classmethod
+    def lending(cls, project, user, source, amount, transaction_id):
+        verfied = verify_transaction(
+            source, settings.BLOCKCHAIN_CONTRACT, amount, transaction_id)
+        if not verfied:
+            raise Exception('transaction is not valid')
+        cls(
+            user=user,
+            project=project,
+            amount=amount,
+            transaction_id=transaction_id,
+        ).save()
 
     def save(self, *args, **kwargs):
         if self.refund_transaction_id:
             self.status = self.STATUS_REFUNDED
+        self.updated_at = datetime.now()
         super().save(*args, **kwargs)
 
     class Meta:
@@ -77,10 +101,13 @@ class Withdrawn(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
     total_amount = models.IntegerField()
     transaction_id = models.CharField(max_length=300)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
 
     def save(self, *args, **kwargs):
         Lend.objects.filter(project=self.project).update(
             status=Lend.STATUS_LENDED)
+        self.updated_at = datetime.now()
         super().save(*args, **kwargs)
 
     class Meta:

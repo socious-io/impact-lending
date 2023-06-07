@@ -54,7 +54,7 @@ connectBtn.addEventListener("click", () => {
 
 
 
-document.getElementById("create-project").addEventListener("click", async () => {
+document.getElementById("create-project")?.addEventListener("click", async () => {
   const account = getAccount();
   if (!account.isConnected) return alert('Please connect your wallet first');
   const dataset = document.getElementById("project-data");
@@ -62,15 +62,69 @@ document.getElementById("create-project").addEventListener("click", async () => 
   const amount = dataset.getAttribute('data-amount');
 
   const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
-  await contract.methods
-    .createProject(id, amount, networks[0].tokens[0].address)
-    .send({from: account.address});
 
-  const response = await axios.post('/projects/create/3')
-  if (response.status == 200) window.location = '/projects/list'
+  try {
+    await contract.methods
+      .createProject(id, amount, networks[0].tokens[0].address)
+      .send({from: account.address});
+  } catch(err) {
+    return alert(err);
+  }
+
+  try {
+    await axios.post('/projects/create/3');
+  } catch {
+    return alert('server fault');
+  }
+  window.location = '/projects/list';
 });
 
 
-document.getElementById("lend-action").addEventListener("click", async () => {
-  document.getElementById("lend-amount");
+document.getElementById("lend-action")?.addEventListener("click", async () => {  
+  const account = getAccount();
+  if (!account.isConnected) return alert('Please connect your wallet first');
+  const dataset = document.getElementById("project-data");
+  const id = dataset.getAttribute('data-id');
+  const reachGoalAmount = dataset.getAttribute('data-reach-goal-amount');
+  const lendAmount = document.getElementById("lend-amount")?.value;
+
+  if (!lendAmount || parseInt(lendAmount) > parseInt(reachGoalAmount)) {
+    return alert('lending amount is not valid');
+  }
+
+  const amount = web3.utils.toWei(lendAmount);
+
+  const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
+  const tokenContract = new web3.eth.Contract(dappConfig.abis.token, networks[0].tokens[0].address);
+  
+  let txHash = '';
+
+  try {
+    await tokenContract.methods
+      .approve(networks[0].contract, amount)
+      .send({ from: account.address });
+
+
+    const trx = await contract.methods
+      .lending(id, amount)
+      .send({from: account.address});
+      
+    txHash = trx.transactionHash;
+
+  } catch(err) {
+    return alert(err.toString());
+  }
+
+  try {
+    await axios.post(`/projects/${id}/lend`, {
+      source: account.address,
+      amount: lendAmount,
+      tx_hash: txHash
+    });
+  } catch {
+    return alert('could not verify transaction');
+  }
+  
+  window.location = `/projects/${id}`;
+
 })

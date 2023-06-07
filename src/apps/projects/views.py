@@ -1,27 +1,36 @@
-import uuid
+import json
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Project, Lend
-from .forms import ProjectFormScreen1, ProjectFormScreen2, ProjectFormScreen3
+from .forms import ProjectFormScreen1, ProjectFormScreen2
 
 
 @login_required
 def get_project(request, project_id):
-    print(project_id)
     project = Project.objects.get(id=project_id)
-    return render(request, 'project.html', {'project': project, 'reach_goal_amount': Lend.reach_goal_amount(project)})
+    return render(request, 'project_details.html', {'project': project})
 
 
 @login_required
 def project_list(request):
+    query = request.GET.get('q')
     list = Project.objects.all()
+    if query:
+        list = Project.objects.filter(
+            Q(title__icontains=query) |
+            Q(subtitle__icontains=query) |
+            Q(description__icontains=query)
+        )
+
+    list.order_by('-created_at')
     paginator = Paginator(list, 10)
 
     page_number = request.GET.get('page')
     paginate = paginator.get_page(page_number)
 
-    return render(request, 'projects.html', {'paginate': paginate})
+    return render(request, 'projects.html', {'paginate': paginate, 'query': query})
 
 
 @login_required
@@ -91,3 +100,21 @@ def create_project_3(request):
         return HttpResponse('OK')
 
     return render(request, 'project_screen_3.html', {'project': project})
+
+
+@login_required
+def lending(request, project_id):
+    project = Project.objects.get(id=project_id)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        source = data.get('source')
+        tx_hash = data.get('tx_hash')
+        amount = data.get('amount')
+        try:
+            Lend.lending(project, request.user, source, amount, tx_hash)
+        except Exception as err:
+            return HttpResponse('FAILED', status=400)
+        return HttpResponse('OK')
+
+    return render(request, 'lend.html', {'project': project})

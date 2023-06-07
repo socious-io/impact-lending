@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('<uuid:project_id>', views.get_project),
+    path('<uuid:project_id>/lend', views.lending),
     path('list', views.project_list),
     path('create', views.create_project),
     path('create/2', views.create_project_2),

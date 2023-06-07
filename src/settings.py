@@ -144,3 +144,7 @@ STATICFILES_DIRS = [BASE_DIR / 'statics']
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+BLOCKCHAIN_EXPELORER = config.get('crypto', 'expelorer')
+BLOCKCHAIN_TOKENS = config.get('crypto', 'tokens').upper().split(',')
+BLOCKCHAIN_CONTRACT = config.get('crypto', 'contract').upper()

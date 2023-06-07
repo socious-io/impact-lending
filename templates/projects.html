@@ -1,31 +1,222 @@
-<ul>
-{% for project in paginate %}    
-  <a href="/projects/{{project.id}}">
-    <li>    
-        <p>{{ project.title }}</p>
-        <p>{{ project.subtitle }}</p>
-        <p>{{ project.description }}</p>
-        <p>{{ project.location }}</p>    
-    </li>
-  </a>
-{% endfor %}
-<ul>
-
-
-<div class="pagination">
-  <span class="step-links">
-      {% if paginate.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ paginate.previous_page_number }}">previous</a>
-      {% endif %}
-
-      <span class="current">
-          Page {{ paginate.number }} of {{ paginate.paginator.num_pages }}.
-      </span>
-
-      {% if paginate.has_next %}
-          <a href="?page={{ paginate.next_page_number }}">next</a>
-          <a href="?page={{ paginate.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-  </span>
-</div>
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/projects.css" rel="stylesheet" />
+{% endblock%} {% block container %}
+<main class="projects-search-main main-wrapper">
+  <div class="projects-search-section">
+    <div class="projects-search-container1">
+      <div class="projects-search-pageheader">
+        <div class="projects-search-content">
+          <div class="projects-search-textandsupportingtext">
+            <span class="projects-search-text TextxlSemibold">
+              {{paginate.paginator.count}} projects posted
+            </span>
+            <span class="projects-search-text01 TextmdRegular">
+              Find a loan
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="projects-search-section1">
+    <div class="projects-search-container2">
+      <div class="projects-search-filtersbar">
+        <div class="projects-search-inputdropdown">
+          <div class="projects-search-inputwithlabel">
+            <form method='GET' class="projects-search-textinput">
+            <input
+              name="q"
+              value="{{query}}"
+              type="text"
+              placeholder="Keyword"
+              class="projects-search-textinput input TextmdRegular"
+            />
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="projects-search-content1">
+        <div class="projects-search-buttongroup">
+          <button
+            class="projects-search-frame-buttongroupbase TextmdRegular"
+          >
+            <span class="projects-search-text02 TextsmSemibold">
+              Sort by date
+            </span>
+          </button>
+        </div>
+        <div class="projects-search-buttongroup1">
+          <button class="projects-search-frame-buttongroupbase1">
+            <img
+              alt="listI763"
+              src="/statics/img/listi763-8a1i.svg"
+              class="projects-search-list"
+            />
+          </button>
+          <button class="projects-search-frame-buttongroupbase2">
+            <img
+              alt="markerpin02I763"
+              src="/statics/img/markerpin02i763-92s.svg"
+              class="projects-search-markerpin02"
+            />
+          </button>
+        </div>
+      </div>
+      <div class="projects-search-results">
+        {% for project in paginate %}
+        <a
+          href="/projects/{{ project.id }}"
+          class="projects-search-navlink"
+        >
+          <div class="projects-search-frame-listingsearchresult">
+            <div class="projects-search-image">
+              <div class="projects-search-image1">
+                <img
+                  alt="image"
+                  src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1400"
+                  class="projects-search-image2"
+                />
+              </div>
+              <div class="projects-search-overlay"></div>
+              <div class="projects-search-badge">
+                <span class="projects-search-text03 TextsmMedium">
+                  <span>{{project.location.name}}</span>
+                </span>
+              </div>
+            </div>
+            <div class="projects-search-content2">
+              <div class="projects-search-details">
+                <div class="projects-search-detailswrap">
+                  <div class="projects-search-textandsupportingtext1">
+                    <span
+                      class="projects-search-text05 TextlgSemibold"
+                    >
+                      <span>20 days</span>
+                    </span>
+                    <div class="projects-search-textwrap">
+                      <span
+                        class="projects-search-text07 TextsmRegular"
+                      >
+                        <span>Remaining</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="projects-search-textandsupportingtext2">
+                    <span
+                      class="projects-search-text09 TextlgSemibold"
+                    >
+                      <span>{{project.loan_amount}} USDT</span>
+                    </span>
+                    <div class="projects-search-textwrap1">
+                      <span
+                        class="projects-search-text11 TextsmRegular"
+                      >
+                        <span>$ {{project.loan_amount}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="projects-search-progress">
+                  <div class="projects-search-progressbar">
+                    <div class="projects-search-progressbar1">
+                      <div class="projects-search-progress1" style="max-width:{{project.reach_goal_percent}}%"></div>
+                    </div>
+                  </div>
+                  <div class="projects-search-detailswrap1">
+                    <div class="projects-search-textandicon">
+                      <span
+                        class="projects-search-text13 TextsmRegular"
+                      >
+                        <span>{{project.reach_goal_percent}}% funded</span>
+                      </span>
+                    </div>
+                    <div class="projects-search-textandicon1">
+                      <span
+                        class="projects-search-text15 TextsmRegular"
+                      >
+                        <span>{{project.reach_goal_amount}} USDT to go</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="projects-search-detailswrap2">
+                  <div class="projects-search-textandicon2">
+                    <img
+                      alt="clockfastforwardI439"
+                      src="/statics/img/clockfastforwardi439-q9uo.svg"
+                      class="projects-search-clockfastforward"
+                    />
+                    <span class="projects-search-text17 TextmdMedium">
+                      <span>{{project.repayment_period}} months</span>
+                    </span>
+                  </div>
+                  <div class="projects-search-textandicon3">
+                    <img
+                      alt="trendup01I439"
+                      src="/statics/img/trendup01i439-x8f.svg"
+                      class="projects-search-trendup01"
+                    />
+                    <span class="projects-search-text19 TextmdMedium">
+                      <span>1.3% monthly interest</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="projects-search-textandcategory">
+                <span class="projects-search-text21 TextlgMedium">
+                  <span>{{project.title}}</span>
+                </span>
+                <span class="projects-search-text23 TextmdMedium">
+                  <span>
+                    {{project.subtitle}}
+                  </span>
+                </span>
+              </div>
+              <div class="projects-search-actions">
+                <button
+                  class="projects-search-button TextmdSemibold button"
+                >
+                  <span class="projects-search-text25 TextmdSemibold">
+                    <span>Lend now</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      <div class="projects-search-pagination">
+        {% if paginate.has_previous %}
+        <a class="projects-search-button1" href="?page={{ paginate.previous_page_number }}">
+        {% else %}
+        <a class="projects-search-button1" href="#">
+        {% endif %}
+          <img
+            alt="arrowleftI439"
+            src="/statics/img/arrowlefti439-hdvg.svg"
+            class="projects-search-arrowleft"
+          />
+        </a>
+        <span class="projects-search-text27 TextsmRegular">
+          <span class="projects-search-text28">Page</span>
+          <span class="projects-search-text29">{{ paginate.number }}</span>
+          <span class="projects-search-text30">of</span>
+          <span>{{ paginate.paginator.num_pages }}</span>
+        </span>
+        {% if paginate.has_next %}
+        <a class="projects-search-button2" href="?page={{ paginate.next_page_number }}">
+        {% else %}
+        <a class="projects-search-button2" href="#">
+        {% endif %}
+          <img
+            alt="arrowrightI439"
+            src="/statics/img/arrowrighti439-rifd.svg"
+            class="projects-search-arrowright"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,5 +1,138 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">next</button>
-</form>
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/project_screen_1.css" rel="stylesheet" />
+{% endblock%} {% block container %}
+<main class="create-project-step1-main main-wrapper">
+  <div
+    class="create-project-step1-container1 create-project container"
+  >
+    <section class="section-header">
+      <div class="create-project-step1-textandsupportingtext">
+        <h1 class="create-project-step1-text DisplaymdSemibold">
+          <span>First, let’s get you set up</span>
+        </h1>
+        <span class="create-project-step1-text02 TextlgRegular">
+          <span>
+            Make it easy for people to learn about your project.
+          </span>
+        </span>
+      </div>
+    </section>
+    <form class="section-form" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="create-project-step1-form">
+        <div class="create-project-step1-formfields">
+          <div class="create-project-step1-inputfield">
+            <div class="create-project-step1-inputwithlabel">
+              <span class="create-project-step1-text04 TextsmMedium">
+                Project title
+              </span>
+              {{form.title}} {{form.title.errors}}
+            </div>
+          </div>
+          <div class="create-project-step1-inputfield1">
+            <div class="create-project-step1-inputwithlabel1">
+              <span class="create-project-step1-text05 TextsmMedium">
+                Subtitle
+              </span>
+              {{form.subtitle}} {{form.subtitle.errors}}
+            </div>
+            <span class="create-project-step1-text06 TextsmRegular">
+              <span>
+                Write a clear, brief title and subtitle to help people
+                quickly understand your project. Both will appear on
+                your project and pre-launch pages.
+              </span>
+            </span>
+          </div>
+          <div class="create-project-step1-inputfield2">
+            <div class="create-project-step1-inputwithlabel2">
+              <span class="create-project-step1-text08 TextsmMedium">
+                <span>Location</span>
+              </span>
+              {{form.location}} {{form.location.errors}}
+            </div>
+          </div>
+          <div class="create-project-step1-textareainputfield">
+            <div class="create-project-step1-inputwithlabel3">
+              <span class="create-project-step1-text10 TextsmMedium">
+                <span>Description</span>
+              </span>
+              {{form.description}} {{form.description.errors}}
+            </div>
+          </div>
+          <br>          
+            <div class="create-project-step1-inputwithlabel4">
+              <input class="" name="photos" type="file" id="photos" style="display: none;" multiple >
+              <span class="create-project-step1-text12 TextsmMedium">
+                <span>Photos</span>
+              </span>
+              
+                <label
+                class="create-project-step1-fileupload"
+                for="photos"
+                >
+                <div class="create-project-step1-frame-fileuploadbase">
+                  <div class="create-project-step1-content">
+                    <div class="create-project-step1-featuredicon">
+                      <img
+                        alt="uploadcloud02I763"
+                        src="/statics/img/uploadcloud02i763-40n2.svg"
+                        class="create-project-step1-uploadcloud02"
+                      />
+                    </div>
+                    <div
+                      class="create-project-step1-textandsupportingtext1"
+                    >
+                      <div class="create-project-step1-action">
+                        
+                          <span>Click to upload</span>
+                        <span
+                          class="create-project-step1-text16 TextsmRegular"
+                        >
+                        </span>
+                      </div>
+                      <span
+                        class="create-project-step1-text18 TextxsRegular"
+                      >
+                        <span>PNG, JPG or GIF</span>
+                      </span>
+                      <span id="photo-preview"></span>
+                    </div>
+                  </div>
+                </div>
+              </lable>
+
+            </div>          
+          <div class="create-project-step1-inputfield3">
+            <div class="create-project-step1-inputwithlabel5">
+              <span class="create-project-step1-text20 TextsmMedium">
+                <span>Video link (Youtube, Vimeo)</span>
+              </span>
+              {{form.video_link}} {{form.video_link.errors}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="create-project-step1-actions">
+        <button
+          type="submit"
+          class="create-project-step1-button1 TextmdSemibold button"
+        >
+          <span class="create-project-step1-text22 TextmdSemibold">
+            <span>Save and continue</span>
+          </span>
+        </button>
+        <a
+          href="/projects/list"
+          class="create-project-step1-button2 button-secondary-gray"
+        >
+          <span class="create-project-step1-text24 TextmdSemibold">
+            <span>Cancel</span>
+          </span>
+        </a>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

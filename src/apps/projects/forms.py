@@ -13,9 +13,19 @@ class ProjectFormScreen1(forms.Form):
             'class': 'profile-textinput input TextmdRegular',
         })
     )
-    subtitle = forms.CharField(widget=forms.Textarea)
+    subtitle = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'textarea TextmdRegular',
+        'rows': '3'
+    }))
 
-    description = forms.CharField(widget=forms.Textarea)
+    description = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'textarea TextmdRegular',
+        'rows': '5'
+    }))
+
+    video_link = forms.URLField(required=False, widget=forms.TextInput(attrs={
+        'class': 'profile-textinput input TextmdRegular',
+    }))
 
     location = CountryField().formfield(
         required=False,
@@ -26,8 +36,14 @@ class ProjectFormScreen1(forms.Form):
 
 
 class ProjectFormScreen2(forms.Form):
-    loan_amount = forms.IntegerField()
-    repayment_period = forms.IntegerField()
+    REPAYMENT_CHOICES = [(i*6, f'{i*6} months') for i in range(1, 5)]
+    loan_amount = forms.IntegerField(widget=forms.NumberInput(attrs={
+        'class': "create-project-step2-textinput TextmdRegular",
+        'placeholder': '1000'
+    }))
+    repayment_period = forms.ChoiceField(choices=REPAYMENT_CHOICES, widget=forms.Select(attrs={
+        'class': 'input'
+    }))
 
 
 class ProjectFormScreen3(forms.Form):
@@ -35,3 +51,7 @@ class ProjectFormScreen3(forms.Form):
         'class': 'hide',
         'id': 'project-transaction-id'
     }))
+
+
+class ImageForm(forms.Form):
+    photo = forms.ImageField(required=True)

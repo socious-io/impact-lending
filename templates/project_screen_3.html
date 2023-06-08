@@ -1,6 +1,8 @@
 {% extends 'base_user.html' %} {% block statics %}
 <link href="/statics/css/connect-wallet.css" rel="stylesheet" />
 {% endblock%} {% block container %}
+{% csrf_token %}
+<div id='project-data' data-id="{{project.id}}" data-amount="{{project.loan_amount}}"></div> 
 <main class="login-login main-wrapper">
   <div class="section-header">
     <div class="connect-wallet-step1-textandsupportingtext">
@@ -13,10 +15,9 @@
     
     <button
       class="connect-wallet-step2-button2 TextmdSemibold button"
+      id="create-project"
     >
-      <span class="connect-wallet-step2-text10 TextmdSemibold">
         Create my project
-      </span>
     </button>
     <br>
     
@@ -30,6 +31,4 @@
     
   </div>
 </main>
-
-<script src="/statics/js/dist/main.bundle.js"></script>
 {% endblock %}

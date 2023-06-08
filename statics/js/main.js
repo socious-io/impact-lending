@@ -32,23 +32,30 @@ const ethereumClient = new EthereumClient(wagmiConfig, chains);
 const web3modal = new Web3Modal({ projectId }, ethereumClient);
 
 const connectDiv = document.getElementById("wallet-connect");
+const createProjectBtn = document.getElementById("create-project")
 
 const connect = async (account) => {
   const provider = await account.connector.getProvider();
   web3 = new Web3(provider);
   connected = true;
-  connectDiv.innerHTML = walletConnectedView(account.address);
-  document.getElementById("wallet-connect-btn").addEventListener("click", () => {
-    web3modal.openModal()
-  })
+  if (connectDiv) {
+    connectDiv.innerHTML = walletConnectedView(account.address);
+    document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {
+      web3modal.openModal()
+    });
+    createProjectBtn.disabled = false;
+  }
 }
 
 const disconnect = async () => {
   connected = false;
-  connectDiv.innerHTML = walletDisconnectedView;
-  document.getElementById("wallet-connect-btn").addEventListener("click", () => {
-    web3modal.openModal()
-  })
+  if (connectDiv) {
+    connectDiv.innerHTML = walletDisconnectedView;
+    document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {
+      web3modal.openModal()
+    });  
+    createProjectBtn.disabled = true;
+  }
 }
 
 watchAccount(async (account) => {
@@ -58,7 +65,7 @@ watchAccount(async (account) => {
 
 
 
-document.getElementById("create-project")?.addEventListener("click", async () => {
+createProjectBtn?.addEventListener("click", async () => {
   const account = getAccount();
   if (!account.isConnected) return alert('Please connect your wallet first');
   const dataset = document.getElementById("project-data");
@@ -132,3 +139,21 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
   window.location = `/projects/${id}`;
 
 })
+
+
+
+document.getElementById('photos')?.addEventListener('change', function(e){
+  let preview = document.getElementById('photo-preview');
+  preview.innerHTML = '';
+  let files = e.target.files;
+  for(let i = 0; i < files.length; i++){
+      let file = files[i];
+      let img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.style.width = '30%';
+      img.onload = function() {
+          URL.revokeObjectURL(this.src);
+      }
+      preview.appendChild(img);
+  }
+});

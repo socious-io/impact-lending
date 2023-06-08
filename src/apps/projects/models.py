@@ -37,16 +37,28 @@ class Project(models.Model):
 
     @property
     def reach_goal_percent(self):
+
         return 100 - ((self.reach_goal_amount * 100) / self.loan_amount)
 
     def save(self, *args, **kwargs):
-        if self.reach_goal_amount is None:
+        if self.reach_goal_amount is None or self.reach_goal_amount > self.loan_amount:
             self.reach_goal_amount = self.loan_amount
         self.updated_at = datetime.now()
         super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'projects'
+
+
+class Photo(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to='photos/')
+    project = models.ForeignKey(
+        Project, related_name='images', on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        db_table = 'photos'
 
 
 class Lend(models.Model):
@@ -61,8 +73,10 @@ class Lend(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, related_name='lends',
+                             on_delete=models.SET_NULL, null=True)
+    project = models.ForeignKey(
+        Project, related_name='lends', on_delete=models.SET_NULL, null=True)
     amount = models.IntegerField()
     transaction_id = models.CharField(max_length=300)
     refund_transaction_id = models.CharField(max_length=300, null=True)

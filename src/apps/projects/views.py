@@ -1,10 +1,12 @@
+import os
 import json
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Project, Lend
-from .forms import ProjectFormScreen1, ProjectFormScreen2
+from .models import Project, Lend, Photo
+from .forms import ProjectFormScreen1, ProjectFormScreen2, ImageForm
 
 
 @login_required
@@ -16,23 +18,24 @@ def get_project(request, project_id):
 @login_required
 def project_list(request):
     query = request.GET.get('q')
-    list = Project.objects.all()
+    list = Project.objects.filter(
+        status=Project.STATUS_FUNDRAISING).order_by('-created_at')
     if query:
         list = Project.objects.filter(
             Q(title__icontains=query) |
             Q(subtitle__icontains=query) |
             Q(description__icontains=query)
-        )
+        ).order_by('-created_at')
 
-    list.order_by('-created_at')
     paginator = Paginator(list, 10)
 
     page_number = request.GET.get('page')
     paginate = paginator.get_page(page_number)
 
-    return render(request, 'projects.html', {'paginate': paginate, 'query': query})
+    return render(request, 'projects.html', {'paginate': paginate, 'query': query or ''})
 
 
+@csrf_exempt
 @login_required
 def create_project(request):
 
@@ -42,9 +45,16 @@ def create_project(request):
         project = Project.objects.get(id=id)
 
     if request.method == 'POST':
+        photos = request.FILES.getlist('photos')
         form = ProjectFormScreen1(request.POST)
+        saved_photos = []
         if not form.is_valid():
             return render(request, 'project_screen_1.html', {'form': form}, status=400)
+
+        for photo in photos:
+            photo_model = Photo(image=photo, project=project)
+            photo_model.save()
+            saved_photos.append(photo_model.id.hex)
 
         if project:
             project.title = form.cleaned_data['title']
@@ -58,6 +68,7 @@ def create_project(request):
             'subtitle': form.cleaned_data['subtitle'],
             'description': form.cleaned_data['description'],
             'location': form.cleaned_data['location'],
+            'saved_photos': saved_photos
         }
 
         return redirect('/projects/create/2')
@@ -101,10 +112,14 @@ def create_project_2(request):
             description=data.get('description'),
             location=data.get('location'),
             loan_amount=form.cleaned_data['loan_amount'],
-            repayment_period=form.cleaned_data['repayment_period']
+            repayment_period=int(form.cleaned_data['repayment_period'])
         )
-
         project.save()
+
+        if len(data.get('saved_photos')) > 0:
+            Photo.objects.filter(id__in=data.get(
+                'saved_photos')).update(project_id=project.id)
+
         request.session['project_data'] = None
         request.session['project_id'] = project.id.hex
         return redirect('/projects/create/3')

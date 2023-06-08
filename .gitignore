@@ -5,3 +5,4 @@ env/
 *.pem
 node_modules/
 package-lock.json
+photos/

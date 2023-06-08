@@ -1,5 +1,99 @@
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">create</button>
-</form>
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/project_screen_2.css" rel="stylesheet" />
+{% endblock%} {% block container %}
+
+<main class="create-project-step2-main main-wrapper">
+  <div
+    class="create-project-step2-container1 create-project container"
+  >
+    <section class="section-header">
+      <div class="create-project-step2-textandsupportingtext">
+        <h1 class="create-project-step2-text DisplaymdSemibold">
+          <span>Now, let's define your funding goal</span>
+          <br />
+        </h1>
+        <span class="create-project-step2-text03 TextlgRegular">
+          Make it easy for people to learn about your project.
+        </span>
+      </div>
+    </section>
+    <form class="section-form" method='post'>
+      {% csrf_token %}
+      <div class="create-project-step2-form">
+        <div class="create-project-step2-formfields">
+          <div class="create-project-step2-inputfield">
+            <div class="create-project-step2-inputwithlabel">
+              <span class="create-project-step2-text04 TextsmMedium">
+                Loan amount
+              </span>
+              <div class="create-project-step2-input">
+                <div class="create-project-step2-content">
+                  {{form.loan_amount}}{{form.loan_amount.errors}}
+                </div>
+                <div class="create-project-step2-dropdown">
+                  <span
+                    class="create-project-step2-text05 TextmdRegular"
+                  >
+                    <span>USDT</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="create-project-step2-inputfield1">
+            <div class="create-project-step2-inputwithlabel1">
+              <span class="create-project-step2-text08 TextsmMedium">
+                Repayment period
+              </span>
+              {{form.repayment_period}}{{form.repayment_period.errors}}
+            </div>
+            <span class="create-project-step2-text09 TextsmRegular">
+              Fixed 1.3% monthly interest rate
+            </span>
+          </div>
+          <div class="card">
+            <div class="create-project-step2-container2">
+              <span class="create-project-step2-text10 TextsmMedium">
+                <span>Monthly cost for <span id=""></span> months</span>
+              </span>
+              <div class="create-project-step2-numberandbadge">
+                <span
+                  class="create-project-step2-text12 DisplaysmSemibold"
+                >
+                  <span id="monthly-cost-view"></span>
+                </span>
+              </div>
+              <span class="create-project-step2-text14 TextsmRegular">
+                <span>
+                  You are borrowing <span id=""></span> USDT over <span id=""></span> months at 1.3%
+                  monthly interest rate with a total loan cost of
+                  <span id="total-cost-view"></span?> USDT.
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="create-project-step2-actions">
+        <button
+          type="submit"
+          class="create-project-step2-button TextmdSemibold button"
+        >
+          <span class="create-project-step2-text16 TextmdSemibold">
+            Connect a wallet
+          </span>
+        </button>
+        <a
+          href="/projects/list"
+          class="create-project-step2-button1 button-secondary-gray"
+        >
+          <span class="create-project-step2-text17 TextmdSemibold">
+            <span>Cancel</span>
+          </span>
+        </a>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

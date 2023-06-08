@@ -1,6 +1,112 @@
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/lend-modal.css" rel="stylesheet" />
+<link href="/statics/css/connect-wallet.css" rel="stylesheet" />
+{% endblock%} {% block container %}
 {% csrf_token %}
-<div id='project-data' data-id="{{project.id}}" data-amount="{{project.loan_amount}}" data-reach-goal-amount={{project.reach_goal_amount}}></div> 
-<button id="wallet-connect">Connect Wallet</button>
-<input type="number" id="lend-amount">
-<button id="lend-action">lend</button>
-<script src="/statics/js/dist/main.bundle.js"></script>
+<div id='project-data' data-id="{{project.id}}" data-amount="{{project.loan_amount}}" data-reach-goal-amount={{project.reach_goal_amount}}></div>
+<div class="lend-modal-container">
+  <div class="lend-modal-page-wrapper page-wrapper">
+    <div class="blur"></div>
+    <div class="lend-modal-modal modal">
+      <div class="lend-modal-container1 modal-container">
+        <section class="modal-header">
+          <div class="lend-modal-textandsupportingtext">
+            <span class="lend-modal-text DisplayxsSemibold">
+              <span>Regenerative Agriculture in Cameroon</span>
+            </span>
+            <span class="lend-modal-text02 TextsmRegular">
+              <span>Loan reserved for 29m45s</span>
+            </span>
+          </div>
+        </section>
+        <div class="divider"></div>
+        <section class="modal-content padding-top">
+          <div class="lend-modal-inputfield">
+            <div class="lend-modal-inputwithlabel">
+              <span class="lend-modal-text04">Contribution amount</span>
+              <div class="lend-modal-input">
+                <div class="lend-modal-content">
+                  <input
+                    type="number"
+                    placeholder="1000"
+                    id="lend-amount"
+                    class="lend-modal-textinput TextmdRegular"
+                  />
+                </div>
+                <div class="lend-modal-dropdown">
+                  <span class="lend-modal-text05 TextmdRegular">
+                    <span>USDT</span>
+                  </span>
+                </div>
+              </div>
+              <span class="lend-modal-text07 TextsmRegular">
+                $ 1,001.27 USD
+              </span>
+            </div>
+          </div>
+          <div class="divider"></div>
+        </section>
+        <section class="modal-content">
+          <div class="lend-modal-content1">
+            <div class="lend-modal-info">
+              <p class="lend-modal-text08 TextsmRegular">
+                <span>
+                  You are lending 1000 USDT over 12 months at 1.3% monthly
+                  interest rate
+                </span>
+              </p>
+              <div class="lend-modal-table">
+                <div class="lend-modal-row">
+                  <span class="lend-modal-text10 TextsmRegular">
+                    <span>Socious fee</span>
+                  </span>
+                  <span class="lend-modal-text12 TextsmRegular">
+                    <span>0.65%</span>
+                  </span>
+                </div>
+                <div class="lend-modal-row1">
+                  <span class="lend-modal-text14 TextsmRegular">
+                    <span>Your monthly gain</span>
+                  </span>
+                  <span class="lend-modal-text16 TextsmSemibold">
+                    <span>5.42 USDT</span>
+                  </span>
+                </div>
+              </div>
+              <p class="lend-modal-text18 TextxsRegular">
+                <span>50% of Socious fees collateralizes loans.</span>
+              </p>
+            </div>
+            <div class="divider"></div>
+            <div class="lend-modal-headingandnumber">
+              <span class="lend-modal-text20 TextsmMedium">
+                <span>Total gain for 12 months</span>
+              </span>
+              <div class="lend-modal-numberandbadge">
+                <span class="lend-modal-text22 DisplaysmSemibold">
+                  <span>65.04 USDT</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="divider"></div>
+        <div id="wallet-connect"></div>
+        <br>
+        <section class="modal-actions">
+          <button class="TextmdSemibold button lend-modal-button" id="lend-action">
+            <span class="lend-modal-text24 TextmdSemibold">
+              <span>Lend</span>
+            </span>
+          </button>
+          <a href="/projects/{{project.id}}" class="button-secondary-gray lend-modal-button1">
+            <span class="lend-modal-text26 TextmdSemibold">
+              <span>Cancel</span>
+            </span>
+          </a>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

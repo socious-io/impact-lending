@@ -12,6 +12,7 @@ from .forms import ProjectFormScreen1, ProjectFormScreen2, ImageForm
 @login_required
 def get_project(request, project_id):
     project = Project.objects.get(id=project_id)
+    print(project.images.all())
     return render(request, 'project_details.html', {'project': project})
 
 

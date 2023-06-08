@@ -71,11 +71,21 @@
           <div class="projects-search-frame-listingsearchresult">
             <div class="projects-search-image">
               <div class="projects-search-image1">
-                <img
-                  alt="image"
-                  src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1400"
-                  class="projects-search-image2"
-                />
+                {% with project.images.all|first as photo %}
+                      {% if photo %}
+                        <img
+                          alt="clockfastforwardI439"
+                          src="/{{photo.image}}"
+                          class="projects-search-clockfastforward"
+                        />
+                        {% else %}
+                        <img
+                          alt="image"
+                          src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1400"
+                          class="projects-search-image2"
+                        />
+                        {% endif %}
+                    {% endwith %}
               </div>
               <div class="projects-search-overlay"></div>
               <div class="projects-search-badge">
@@ -141,11 +151,6 @@
                 </div>
                 <div class="projects-search-detailswrap2">
                   <div class="projects-search-textandicon2">
-                    <img
-                      alt="clockfastforwardI439"
-                      src="/statics/img/clockfastforwardi439-q9uo.svg"
-                      class="projects-search-clockfastforward"
-                    />
                     <span class="projects-search-text17 TextmdMedium">
                       <span>{{project.repayment_period}} months</span>
                     </span>

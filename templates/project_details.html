@@ -50,11 +50,6 @@
           <div class="project-details-section2">
             <div class="project-details-profile">
               <div class="project-details-avatar">
-                <img
-                  alt="image"
-                  src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=200"
-                  class="project-details-image"
-                />
               </div>
               <div class="project-details-textandsupportingtext1">
                 <span class="project-details-text08 TextlgSemibold">
@@ -91,11 +86,13 @@
           </div>
           <div class="project-details-section5">
             <div class="project-details-image1">
+              {% for image in project.images.all %}
               <img
                 alt="image"
-                src="https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w5MTMyMXwwfDF8c2VhcmNofDN8fGZhcm1lciUyMGFmcmljYXxlbnwwfHx8fDE2ODU5NDgzNjJ8MA&amp;ixlib=rb-4.0.3&amp;q=80&amp;w=1500"
+                src="/{{image.image}}"
                 class="project-details-image2"
               />
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -176,29 +173,6 @@
                     <span class="project-details-text29 TextmdMedium">
                       <span>1.3% monthly interest</span>
                     </span>
-                  </div>
-                </div>
-                <div class="project-details-inputfield">
-                  <div class="project-details-inputwithlabel">
-                    <span class="project-details-text31 TextsmMedium">
-                      <span>Contribution amount</span>
-                    </span>
-                    <div class="project-details-input">
-                      <div class="project-details-content4">
-                        <input
-                          type="text"
-                          placeholder="1000"
-                          class="project-details-textinput TextmdRegular"
-                        />
-                      </div>
-                      <div class="project-details-dropdown">
-                        <span
-                          class="project-details-text33 TextmdRegular"
-                        >
-                          <span>USDT</span>
-                        </span>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="project-details-actions">

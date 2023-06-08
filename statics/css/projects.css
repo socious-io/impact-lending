@@ -700,10 +700,7 @@
   display: flex;
   align-items: center;
 }
-.projects-search-clockfastforward {
-  width: 20px;
-  height: 20px;
-}
+
 .projects-search-text17 {
   color: var(--dl-color-gray-600);
   height: auto;

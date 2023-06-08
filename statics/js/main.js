@@ -43,7 +43,7 @@ const connect = async (account) => {
     document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {
       web3modal.openModal()
     });
-    createProjectBtn.disabled = false;
+    if (createProjectBtn) createProjectBtn.disabled = false;
   }
 }
 
@@ -54,7 +54,7 @@ const disconnect = async () => {
     document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {
       web3modal.openModal()
     });  
-    createProjectBtn.disabled = true;
+    if (createProjectBtn) createProjectBtn.disabled = true;
   }
 }
 

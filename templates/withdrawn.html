@@ -12,7 +12,7 @@
         <section class="modal-header">
           <div class="lend-modal-textandsupportingtext">
             <span class="lend-modal-text DisplayxsSemibold">
-              <span>{{Project.title}}</span>
+              <span>{{project.title}}</span>
             </span>
           </div>
         </section>
@@ -20,15 +20,10 @@
         <section class="modal-content padding-top">
           <div class="lend-modal-inputfield">
             <div class="lend-modal-inputwithlabel">
-              <span class="lend-modal-text04">Contribution amount</span>
+              <span class="lend-modal-text04">Loan amount</span>
               <div class="lend-modal-input">
                 <div class="lend-modal-content">
-                  <input
-                    type="number"
-                    placeholder="1000"
-                    id="lend-amount"
-                    class="lend-modal-textinput TextmdRegular"
-                  />
+                  {{project.loan_amount}}
                 </div>
                 <div class="lend-modal-dropdown">
                   <span class="lend-modal-text05 TextmdRegular">
@@ -45,32 +40,8 @@
             <div class="lend-modal-info">
               <p class="lend-modal-text08 TextsmRegular">
                 <span>
-                  You are lending 1000 USDT over 12 months at 1.3% monthly
-                  interest rate
                 </span>
               </p>
-              <div class="lend-modal-table">
-                <div class="lend-modal-row">
-                  <span class="lend-modal-text10 TextsmRegular">
-                    <span>Socious fee</span>
-                  </span>
-                  <span class="lend-modal-text12 TextsmRegular">
-                    <span>0.65%</span>
-                  </span>
-                </div>
-                <div class="lend-modal-row1">
-                  <span class="lend-modal-text14 TextsmRegular">
-                    <span>Your monthly gain</span>
-                  </span>
-                  <span class="lend-modal-text16 TextsmSemibold">
-                    <span>5.42 USDT</span>
-                  </span>
-                </div>
-              </div>
-              <p class="lend-modal-text18 TextxsRegular">
-                <span>50% of Socious fees collateralizes loans.</span>
-              </p>
-            </div>
             <div class="divider"></div>
             <div class="lend-modal-headingandnumber">
               <span class="lend-modal-text20 TextsmMedium">
@@ -88,9 +59,9 @@
         <div id="wallet-connect"></div>
         <br>
         <section class="modal-actions">
-          <button class="TextmdSemibold button lend-modal-button" id="lend-action">
+          <button class="TextmdSemibold button lend-modal-button" id="borrow-action">
             <span class="lend-modal-text24 TextmdSemibold">
-              <span>Lend</span>
+              <span>Withdrawn</span>
             </span>
           </button>
           <a href="/projects/{{project.id}}" class="button-secondary-gray lend-modal-button1">

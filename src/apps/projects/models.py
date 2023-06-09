@@ -37,7 +37,8 @@ class Project(models.Model):
 
     @property
     def reach_goal_percent(self):
-
+        print(100 - ((self.reach_goal_amount * 100) /
+              self.loan_amount), '--------------')
         return 100 - ((self.reach_goal_amount * 100) / self.loan_amount)
 
     def save(self, *args, **kwargs):
@@ -52,7 +53,7 @@ class Project(models.Model):
 
 class Photo(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    image = models.ImageField(upload_to='photos/')
+    image = models.ImageField()
     project = models.ForeignKey(
         Project, related_name='images', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(default=datetime.now)

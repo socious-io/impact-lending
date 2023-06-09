@@ -12,8 +12,21 @@ from .forms import ProjectFormScreen1, ProjectFormScreen2, ImageForm
 @login_required
 def get_project(request, project_id):
     project = Project.objects.get(id=project_id)
-    print(project.images.all())
     return render(request, 'project_details.html', {'project': project})
+
+
+@login_required
+def my_projects(request):
+    list = Project.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+
+    paginator = Paginator(list, 10)
+
+    page_number = request.GET.get('page')
+    paginate = paginator.get_page(page_number)
+
+    return render(request, 'my_projects.html', {'paginate': paginate})
 
 
 @login_required
@@ -168,3 +181,18 @@ def lending(request, project_id):
         return HttpResponse('OK')
 
     return render(request, 'lend.html', {'project': project})
+
+
+@login_required
+def withdrawn(request, project_id):
+    project = Project.objects.get(id=project_id)
+
+    if request.user != project.user or project.reach_goal_amount != 0:
+        return HttpResponse("Permission denied", status=403)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print(data)
+        return HttpResponse('OK')
+
+    return render(request, 'withdrawn.html', {'project': project})

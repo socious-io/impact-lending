@@ -89,7 +89,7 @@
               {% for image in project.images.all %}
               <img
                 alt="image"
-                src="/{{image.image}}"
+                src="/photos/{{image.image}}"
                 class="project-details-image2"
               />
               {% endfor %}
@@ -133,7 +133,7 @@
                 <div class="project-details-progress">
                   <div class="project-details-progressbar">
                     <div class="project-details-progressbar1">
-                      <div class="projects-search-progress1" style="max-width:{{project.reach_goal_percent}}%"></div>
+                      <div class="project-details-progress1" style="max-width:{{project.reach_goal_percent}}%"></div>
                     </div>
                   </div>
                   <div class="project-details-detailswrap1">
@@ -176,6 +176,7 @@
                   </div>
                 </div>
                 <div class="project-details-actions">
+                  {% if project.user != request.user and project.reach_goal_amount != 0 %}
                   <a
                     href="/projects/{{project.id}}/lend"
                     class="project-details-button1 TextmdSemibold button"
@@ -184,6 +185,17 @@
                       <span>Lend now</span>
                     </span>
                   </a>
+                  {% endif %}
+                  {% if project.user == request.user and project.reach_goal_amount == 0 %}
+                  <a
+                    href="/projects/{{project.id}}/withdrawn"
+                    class="project-details-button1 TextmdSemibold button"
+                  >
+                    <span class="project-details-text35 TextmdSemibold">
+                      <span>Withrawn</span>
+                    </span>
+                  </a>
+                  {% endif %}
                 </div>
               </div>
             </div>

@@ -140,6 +140,49 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
 
 })
 
+document.getElementById("borrow-action")?.addEventListener("click", async () => {  
+  const account = getAccount();
+  if (!account.isConnected) return alert('Please connect your wallet first');
+  const dataset = document.getElementById("project-data");
+  const id = dataset.getAttribute('data-id');
+  const reachGoalAmount = dataset.getAttribute('data-reach-goal-amount');
+  const lendAmount = document.getElementById("lend-amount")?.value;
+
+  if (parseInt(reachGoalAmount) != 0) {
+    return alert('Withrawn action is not valid');
+  }
+
+
+  const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
+
+  let txHash = '';
+
+  try {
+
+    const trx = await contract.methods
+      .borrow(id)
+      .send({from: account.address});
+      
+    txHash = trx.transactionHash;
+
+  } catch(err) {
+    return alert(err.toString());
+  }
+
+  try {
+    await axios.post(`/projects/${id}/withdrawn`, {
+      source: account.address,
+      amount: lendAmount,
+      tx_hash: txHash
+    });
+  } catch {
+    return alert('could not verify transaction');
+  }
+  
+  window.location = `/projects/${id}`;
+
+})
+
 
 
 document.getElementById('photos')?.addEventListener('change', function(e){

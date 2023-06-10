@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, HttpResponse
-from .models import Project, Lend, Photo
+from .models import Project, Lend, Photo, Withdrawn
 from .forms import ProjectFormScreen1, ProjectFormScreen2, ImageForm
 
 
@@ -176,7 +176,7 @@ def lending(request, project_id):
         amount = data.get('amount')
         try:
             Lend.lending(project, request.user, source, amount, tx_hash)
-        except Exception as err:
+        except Exception:
             return HttpResponse('FAILED', status=400)
         return HttpResponse('OK')
 
@@ -192,7 +192,15 @@ def withdrawn(request, project_id):
 
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data)
+        source = data.get('source')
+        dest = data.get('dest')
+        tx_hash = data.get('tx_hash')
+        amount = data.get('amount')
+        try:
+            Withdrawn.borrowing(project, request.user,
+                                source, dest, amount, tx_hash)
+        except Exception:
+            return HttpResponse('FAILED', status=400)
         return HttpResponse('OK')
 
     return render(request, 'withdrawn.html', {'project': project})

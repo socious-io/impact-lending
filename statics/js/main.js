@@ -171,7 +171,8 @@ document.getElementById("borrow-action")?.addEventListener("click", async () => 
 
   try {
     await axios.post(`/projects/${id}/withdrawn`, {
-      source: account.address,
+      source: networks[0].contract,
+      dest: account.address,
       amount: lendAmount,
       tx_hash: txHash
     });

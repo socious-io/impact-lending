@@ -37,8 +37,6 @@ class Project(models.Model):
 
     @property
     def reach_goal_percent(self):
-        print(100 - ((self.reach_goal_amount * 100) /
-              self.loan_amount), '--------------')
         return 100 - ((self.reach_goal_amount * 100) / self.loan_amount)
 
     def save(self, *args, **kwargs):
@@ -62,6 +60,45 @@ class Photo(models.Model):
         db_table = 'photos'
 
 
+class Withdrawn(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+    total_amount = models.IntegerField()
+    transaction_id = models.CharField(max_length=300)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(default=datetime.now)
+
+    @classmethod
+    def borrowing(cls, project, user, source, destination, amount, transaction_id):
+        verfied = verify_transaction(
+            source, destination, amount, transaction_id)
+        if not verfied:
+            raise Exception('transaction is not valid')
+
+        withdrawn = cls(
+            user=user,
+            project=project,
+            total_amount=amount,
+            transaction_id=transaction_id,
+        )
+        withdrawn.save()
+
+        Lend.objects.filter(project=project).update(
+            status=Lend.STATUS_LENDED,
+            withdrawn=withdrawn
+        )
+
+    def save(self, *args, **kwargs):
+        Lend.objects.filter(project=self.project).update(
+            status=Lend.STATUS_LENDED)
+        self.updated_at = datetime.now()
+        super().save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'withrawns'
+
+
 class Lend(models.Model):
     STATUS_PENDING = 'PENDING'
     STATUS_LENDED = 'LENDED'
@@ -78,6 +115,8 @@ class Lend(models.Model):
                              on_delete=models.SET_NULL, null=True)
     project = models.ForeignKey(
         Project, related_name='lends', on_delete=models.SET_NULL, null=True)
+    withdrawn = models.ForeignKey(
+        Withdrawn, related_name='lends', on_delete=models.SET_NULL, null=True)
     amount = models.IntegerField()
     transaction_id = models.CharField(max_length=300)
     refund_transaction_id = models.CharField(max_length=300, null=True)
@@ -108,22 +147,3 @@ class Lend(models.Model):
 
     class Meta:
         db_table = 'lends'
-
-
-class Withdrawn(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
-    total_amount = models.IntegerField()
-    transaction_id = models.CharField(max_length=300)
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
-
-    def save(self, *args, **kwargs):
-        Lend.objects.filter(project=self.project).update(
-            status=Lend.STATUS_LENDED)
-        self.updated_at = datetime.now()
-        super().save(*args, **kwargs)
-
-    class Meta:
-        db_table = 'withrawns'

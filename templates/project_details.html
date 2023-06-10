@@ -107,7 +107,7 @@
                 <div class="project-details-detailswrap">
                   <div class="project-details-textandsupportingtext2">
                     <span class="project-details-text15 TextlgSemibold">
-                      <span>20 days</span>
+                      <span>{{project.live_remains}} days</span>
                     </span>
                     <div class="project-details-textwrap">
                       <span
@@ -176,7 +176,7 @@
                   </div>
                 </div>
                 <div class="project-details-actions">
-                  {% if project.user != request.user and project.reach_goal_amount != 0 %}
+                  {% if project.reach_goal_amount != 0 %}
                   <a
                     href="/projects/{{project.id}}/lend"
                     class="project-details-button1 TextmdSemibold button"
@@ -186,7 +186,7 @@
                     </span>
                   </a>
                   {% endif %}
-                  {% if project.user == request.user and project.reach_goal_amount == 0 %}
+                  {% if project.user == request.user and project.reach_goal_amount == 0 and project.status != 'COMPLETE' %}
                   <a
                     href="/projects/{{project.id}}/withdrawn"
                     class="project-details-button1 TextmdSemibold button"

@@ -8,6 +8,7 @@ Django==4.2.1
 django-countries==7.5.1
 idna==3.4
 jwcrypto==1.4.2
+Pillow==9.5.0
 psycopg2-binary==2.9.6
 pycparser==2.21
 requests==2.31.0

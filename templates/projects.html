@@ -101,7 +101,7 @@
                     <span
                       class="projects-search-text05 TextlgSemibold"
                     >
-                      <span>20 days</span>
+                      <span>{{project.live_remains}} days</span>
                     </span>
                     <div class="projects-search-textwrap">
                       <span
@@ -177,6 +177,7 @@
                   </span>
                 </span>
               </div>
+              {% if project.reach_goal_amount > 0 %}
               <div class="projects-search-actions">
                 <button
                   class="projects-search-button TextmdSemibold button"
@@ -186,6 +187,7 @@
                   </span>
                 </button>
               </div>
+              {% endif %}
             </div>
           </div>
         </a>

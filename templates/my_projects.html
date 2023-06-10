@@ -116,7 +116,7 @@
                 </span>
               </div>
               <div class="my-projects-actions">
-                {% if project.reach_goal_percent == 100 %}
+                {% if project.reach_goal_percent == 100 and project.status != 'COMPLETE' %}
                 <button
                   class="my-projects-button TextmdSemibold button"
                 >

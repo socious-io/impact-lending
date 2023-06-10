@@ -12,14 +12,20 @@ def verify_transaction(src, dest, amount, tx_hash, retry=0) -> bool:
         'address': src,
     }
 
-    response = requests.get(settings.BLOCKCHAIN_EXPELORER, params=data)
+    try:
+        response = requests.get(settings.BLOCKCHAIN_EXPELORER, params=data)
+    except Exception as err:
+        print('tx %s => request err %s , retry = %d' %
+              (tx_hash, str(err), retry))
+        time.sleep(1)
+        retry += 1
+        return verify_transaction(src, dest, amount, tx_hash, retry)
     transaction = None
 
     try:
         transaction = list(filter(lambda x: x.get('hash') == tx_hash,
                                   response.json().get('result')))[0]
     except Exception:
-
         if retry < 5:
             time.sleep(1)
             retry += 1

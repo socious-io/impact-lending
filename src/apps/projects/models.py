@@ -1,5 +1,7 @@
 import uuid
+import math
 from datetime import datetime
+from django.utils import timezone
 from django.conf import settings
 from django.db import models
 from django_countries.fields import CountryField
@@ -8,6 +10,8 @@ from src.apps.users.models import User
 
 
 class Project(models.Model):
+    RATE = 1.3
+    LIVE_DAYS = 30
     STATUS_PENDING = 'PENDING'
     STATUS_COMPLETE = 'COMPLETE'
     STATUS_FUNDRAISING = 'FUNDRAISING'
@@ -32,12 +36,24 @@ class Project(models.Model):
     status = models.CharField(
         max_length=16, choices=STATUS_CHOICES, default=STATUS_PENDING)
 
-    created_at = models.DateTimeField(default=datetime.now)
-    updated_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+
+    @property
+    def monthly_payback_amount(self):
+        return math.ceil(self.loan_amount / self.repayment_period * 100 * self.RATE) / 100
+
+    @property
+    def total_payback_amount(self):
+        return math.ceil(self.loan_amount * 100 * self.RATE) / 100
 
     @property
     def reach_goal_percent(self):
         return 100 - ((self.reach_goal_amount * 100) / self.loan_amount)
+
+    @property
+    def live_remains(self):
+        return self.LIVE_DAYS - (timezone.now() - self.created_at).days
 
     def save(self, *args, **kwargs):
         if self.reach_goal_amount is None or self.reach_goal_amount > self.loan_amount:
@@ -75,7 +91,6 @@ class Withdrawn(models.Model):
             source, destination, amount, transaction_id)
         if not verfied:
             raise Exception('transaction is not valid')
-
         withdrawn = cls(
             user=user,
             project=project,
@@ -88,6 +103,9 @@ class Withdrawn(models.Model):
             status=Lend.STATUS_LENDED,
             withdrawn=withdrawn
         )
+
+        project.status = Project.STATUS_COMPLETE
+        project.save()
 
     def save(self, *args, **kwargs):
         Lend.objects.filter(project=self.project).update(

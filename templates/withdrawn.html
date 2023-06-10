@@ -17,44 +17,56 @@
           </div>
         </section>
         <div class="divider"></div>
-        <section class="modal-content padding-top">
-          <div class="lend-modal-inputfield">
-            <div class="lend-modal-inputwithlabel">
-              <span class="lend-modal-text04">Loan amount</span>
-              <div class="lend-modal-input">
-                <div class="lend-modal-content">
-                  {{project.loan_amount}}
-                </div>
-                <div class="lend-modal-dropdown">
-                  <span class="lend-modal-text05 TextmdRegular">
-                    <span>USDT</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="divider"></div>
-        </section>
         <section class="modal-content">
           <div class="lend-modal-content1">
             <div class="lend-modal-info">
               <p class="lend-modal-text08 TextsmRegular">
                 <span>
+                  {{ project.subtitle}}
                 </span>
               </p>
             <div class="divider"></div>
             <div class="lend-modal-headingandnumber">
               <span class="lend-modal-text20 TextsmMedium">
-                <span>Total gain for 12 months</span>
+                <span>Total loan amount</span>
               </span>
               <div class="lend-modal-numberandbadge">
                 <span class="lend-modal-text22 DisplaysmSemibold">
-                  <span>65.04 USDT</span>
+                  <span>{{project.loan_amount}} USDT</span>
                 </span>
               </div>
             </div>
           </div>
         </section>
+        <section class="modal-content">
+          <div class="lend-modal-content1">
+            <div class="lend-modal-headingandnumber">
+              <span class="lend-modal-text20 TextsmMedium">
+                <span>Monthly payback amount</span>
+              </span>
+              <div class="lend-modal-numberandbadge">
+                <span class="lend-modal-text22 DisplaysmSemibold">
+                  <span>{{project.monthly_payback_amount}} USDT</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="modal-content">
+          <div class="lend-modal-content1">
+            <div class="lend-modal-headingandnumber">
+              <span class="lend-modal-text20 TextsmMedium">
+                <span>Total payback amount</span>
+              </span>
+              <div class="lend-modal-numberandbadge">
+                <span class="lend-modal-text22 DisplaysmSemibold">
+                  <span>{{project.total_payback_amount}} USDT</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <div class="divider"></div>
         <div id="wallet-connect"></div>
         <br>

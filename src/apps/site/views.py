@@ -43,8 +43,4 @@ def auth_login_modal(request):
 
 @login_required
 def index(request):
-    return render(request, 'index.html')
-
-
-def connect(request):
-    return render(request, 'connect.html')
+    return redirect('/projects/list')

@@ -3,7 +3,7 @@
 <link href="/statics/css/connect-wallet.css" rel="stylesheet" />
 {% endblock%} {% block container %}
 {% csrf_token %}
-<div id='project-data' data-id="{{project.id}}" data-amount="{{project.loan_amount}}" data-reach-goal-amount={{project.reach_goal_amount}}></div>
+<div id='project-data' data-id="{{project.id}}" data-repayment-period="{{project.repayment_period}}"  data-amount="{{project.loan_amount}}" data-reach-goal-amount={{project.reach_goal_amount}}></div>
 <div class="lend-modal-container">
   <div class="lend-modal-page-wrapper page-wrapper">
     <div class="blur"></div>
@@ -25,7 +25,6 @@
                 <div class="lend-modal-content">
                   <input
                     type="number"
-                    placeholder="1000"
                     id="lend-amount"
                     class="lend-modal-textinput TextmdRegular"
                   />
@@ -45,7 +44,7 @@
             <div class="lend-modal-info">
               <p class="lend-modal-text08 TextsmRegular">
                 <span>
-                  You are lending 1000 USDT over 12 months at 1.3% monthly
+                  You are lending <span id="lend-amount-data">0</span> USDT over {{project.repayment_period}} months at 1.3% monthly
                   interest rate
                 </span>
               </p>
@@ -63,7 +62,7 @@
                     <span>Your monthly gain</span>
                   </span>
                   <span class="lend-modal-text16 TextsmSemibold">
-                    <span>5.42 USDT</span>
+                    <span id="monthly-gain">0</span> USDT
                   </span>
                 </div>
               </div>
@@ -74,11 +73,11 @@
             <div class="divider"></div>
             <div class="lend-modal-headingandnumber">
               <span class="lend-modal-text20 TextsmMedium">
-                <span>Total gain for 12 months</span>
+                <span>Total payback for {{project.repayment_period}} months</span>
               </span>
               <div class="lend-modal-numberandbadge">
                 <span class="lend-modal-text22 DisplaysmSemibold">
-                  <span>65.04 USDT</span>
+                  <span id="total-payback">0</span> USDT
                 </span>
               </div>
             </div>

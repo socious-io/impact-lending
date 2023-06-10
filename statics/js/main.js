@@ -15,7 +15,6 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 let web3;
-let connected = false;
 const networks = process.env.DAPP_ENV === 'mainet' ? dappConfig.mainet : dappConfig.testnet;
 const projectId = dappConfig.walletConnetProjectId;
 const chains = networks.map((n) => n.chain);
@@ -37,7 +36,6 @@ const createProjectBtn = document.getElementById("create-project")
 const connect = async (account) => {
   const provider = await account.connector.getProvider();
   web3 = new Web3(provider);
-  connected = true;
   if (connectDiv) {
     connectDiv.innerHTML = walletConnectedView(account.address);
     document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {
@@ -48,7 +46,6 @@ const connect = async (account) => {
 }
 
 const disconnect = async () => {
-  connected = false;
   if (connectDiv) {
     connectDiv.innerHTML = walletDisconnectedView;
     document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {
@@ -62,10 +59,27 @@ watchAccount(async (account) => {
   account?.isConnected ? await connect(account) : await disconnect();
 });
 
+const processing = () => {
+  var buttons = document.getElementsByTagName('button');
+  for(var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = true;
+  }
+  var overlay = document.getElementById('overlay');
+  overlay.style.display = 'flex';
+}
 
+const processingDone = () => {
+  var buttons = document.getElementsByTagName('button');
+  for(var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = false;
+  }
+  var overlay = document.getElementById('overlay');
+  overlay.style.display = 'none';
+}
 
 
 createProjectBtn?.addEventListener("click", async () => {
+  processing();
   const account = getAccount();
   if (!account.isConnected) return alert('Please connect your wallet first');
   const dataset = document.getElementById("project-data");
@@ -79,19 +93,40 @@ createProjectBtn?.addEventListener("click", async () => {
       .createProject(id, amount, networks[0].tokens[0].address)
       .send({from: account.address});
   } catch(err) {
-    return alert(err);
+    processingDone();
+    return alert(err.message);
   }
 
   try {
     await axios.post('/projects/create/3');
   } catch {
+    processingDone();
     return alert('server fault');
   }
   window.location = '/projects/list';
 });
 
+document.getElementById("lend-amount")?.addEventListener("input", async (el) => {
+  const dataset = document.getElementById("project-data");
+  const reachGoalAmount = parseInt(dataset.getAttribute('data-reach-goal-amount'));
+  const repaymentPeriod = parseInt(dataset.getAttribute('data-repayment-period'));  
+  let amount = parseInt(el.target.value)
+  if (amount > reachGoalAmount) {
+    amount = reachGoalAmount;
+    el.target.value = amount;
+  }
+  const orginalMonthly = Math.ceil(
+    amount / repaymentPeriod * 100) / 100
+  const monthlyGain = Math.ceil(orginalMonthly * 0.65) / 100;
+  document.getElementById("lend-amount-data").innerText = amount;
+  document.getElementById("monthly-gain").innerText = monthlyGain || 0;
+  document.getElementById("total-payback").innerText = (Math.ceil((monthlyGain * repaymentPeriod) * 100 * 12) / 100) + amount  || 0;
 
-document.getElementById("lend-action")?.addEventListener("click", async () => {  
+})
+
+
+document.getElementById("lend-action")?.addEventListener("click", async () => {
+  processing();
   const account = getAccount();
   if (!account.isConnected) return alert('Please connect your wallet first');
   const dataset = document.getElementById("project-data");
@@ -100,6 +135,7 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
   const lendAmount = document.getElementById("lend-amount")?.value;
 
   if (!lendAmount || parseInt(lendAmount) > parseInt(reachGoalAmount)) {
+    processingDone();
     return alert('lending amount is not valid');
   }
 
@@ -123,7 +159,8 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
     txHash = trx.transactionHash;
 
   } catch(err) {
-    return alert(err.toString());
+    processingDone();
+    return alert(err.message);
   }
 
   try {
@@ -133,6 +170,7 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
       tx_hash: txHash
     });
   } catch {
+    processingDone();
     return alert('could not verify transaction');
   }
   
@@ -140,14 +178,14 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
 
 })
 
-document.getElementById("borrow-action")?.addEventListener("click", async () => {  
+document.getElementById("borrow-action")?.addEventListener("click", async () => {
+  processing();
   const account = getAccount();
   if (!account.isConnected) return alert('Please connect your wallet first');
   const dataset = document.getElementById("project-data");
   const id = dataset.getAttribute('data-id');
   const reachGoalAmount = dataset.getAttribute('data-reach-goal-amount');
-  const lendAmount = document.getElementById("lend-amount")?.value;
-
+  const amount = parseInt(dataset.getAttribute('data-amount'));
   if (parseInt(reachGoalAmount) != 0) {
     return alert('Withrawn action is not valid');
   }
@@ -166,17 +204,19 @@ document.getElementById("borrow-action")?.addEventListener("click", async () => 
     txHash = trx.transactionHash;
 
   } catch(err) {
-    return alert(err.toString());
+    processingDone();
+    return alert(err.message);
   }
 
   try {
     await axios.post(`/projects/${id}/withdrawn`, {
       source: networks[0].contract,
       dest: account.address,
-      amount: lendAmount,
+      amount: amount,
       tx_hash: txHash
     });
   } catch {
+    processingDone();
     return alert('could not verify transaction');
   }
   

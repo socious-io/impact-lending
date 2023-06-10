@@ -1,4 +1,5 @@
 import os
+import math
 import json
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
@@ -187,7 +188,7 @@ def lending(request, project_id):
 def withdrawn(request, project_id):
     project = Project.objects.get(id=project_id)
 
-    if request.user != project.user or project.reach_goal_amount != 0:
+    if request.user != project.user or project.reach_goal_amount != 0 or project.status == Project.STATUS_COMPLETE:
         return HttpResponse("Permission denied", status=403)
 
     if request.method == 'POST':
@@ -199,7 +200,8 @@ def withdrawn(request, project_id):
         try:
             Withdrawn.borrowing(project, request.user,
                                 source, dest, amount, tx_hash)
-        except Exception:
+        except Exception as err:
+            print(err)
             return HttpResponse('FAILED', status=400)
         return HttpResponse('OK')
 

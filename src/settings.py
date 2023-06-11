@@ -37,8 +37,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 ALLOWED_HOSTS = [
-    'lending.socious.io',
-    'localhost'
+    'lending.socious.io'
 ]
 
 LOGIN_URL = '/login'

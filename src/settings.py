@@ -13,6 +13,9 @@ import os
 import configparser
 from pathlib import Path
 
+config = configparser.ConfigParser()
+config.read('config.cnf')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # APPS_DIR = os.path.join(BASE_DIR, 'src', 'apps')
@@ -25,11 +28,9 @@ SECRET_KEY = 'django-insecure-gnt8h@vhaexv--fn_xv2@ab^-3e$(mfsn&2_lu_5txd7gr32h8
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-config = configparser.ConfigParser()
-config.read('config.cnf')
 
 APPEND_SLASH = False
-DEBUG = True
+DEBUG = True if config.get('settings', 'debug').lower() == 'true' else False
 
 ALLOWED_HOSTS = []
 

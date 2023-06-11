@@ -31,6 +31,9 @@ SECRET_KEY = 'django-insecure-gnt8h@vhaexv--fn_xv2@ab^-3e$(mfsn&2_lu_5txd7gr32h8
 
 APPEND_SLASH = False
 DEBUG = True if config.get('settings', 'debug').lower() == 'true' else False
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'None'
+
 
 ALLOWED_HOSTS = [
     'lending.socious.io',

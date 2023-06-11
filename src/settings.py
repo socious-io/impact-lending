@@ -33,6 +33,7 @@ APPEND_SLASH = False
 DEBUG = True if config.get('settings', 'debug').lower() == 'true' else False
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = 'None'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 ALLOWED_HOSTS = [

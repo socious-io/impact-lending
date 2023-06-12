@@ -27,7 +27,7 @@ def auth_proofspace(request):
         )
         user.save()
         auth.login(request, user)
-        return redirect('/users/update/profile')
+        return redirect('/users/profile/update')
 
     auth.login(request, user)
     return redirect(request.GET.get('next', '/'))

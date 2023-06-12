@@ -23,7 +23,7 @@ urls = 'src.apps.%s.urls'
 
 
 urlpatterns = [
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('users/', include(urls % 'users')),
     path('projects/', include(urls % 'projects')),
     path('', include(urls % 'site')),

@@ -33,7 +33,8 @@ APPEND_SLASH = False
 DEBUG = True if config.get('settings', 'debug').lower() == 'true' else False
 SESSION_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://lending.socious.io',
+                        'http://44.212.31.178/', 'http://localhost']
 
 ALLOWED_HOSTS = [
     'lending.socious.io',

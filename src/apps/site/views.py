@@ -1,29 +1,28 @@
+import requests
+from django.conf import settings
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from src.apps.users.models import User
 
-PROOFSPACE_OAUTH = 'https://platform.proofspace.id/oauth/token'
-REDIRECT = 'http://localhost:8000/auth/proofspace'
-
 
 def auth_proofspace(request):
-    """ res = post(PROOFSPACE_OAUTH, params={
-        'client_id': '8DXffTYfukQsk3NZZP3ypS',
-        'client_secret': 'secretest',
-        'code': request.GET.get('code', None),
-        'redirect_uri': REDIRECT,
+    code = request.GET.get('code', None)
+    res = requests.post(settings.PROOFPSACE_AUTH_URL, params={
+        'client_id': settings.PROOFSPACE_AUTH_CLIENT_ID,
+        'client_secret': settings.PROOFSPACE_AUTH_CLIENT_SECRET,
+        'code': code,
+        'redirect_uri': settings.PROOFSPACE_AUTH_REDIRECT_URL,
         'grant_type': 'authorization_code'
     })
-    print(res) """
-    did = request.GET.get('code', 1234)
-    user = User.objects.filter(did=did).first()
+    print(res, '----------------------------')
+    user = User.objects.filter(did=code).first()
 
     if not user:
         user = User(
-            did=did,
-            access_token=did,
-            refresh_access_token=did
+            did=code,
+            access_token=code,
+            refresh_access_token=code
         )
         user.save()
         auth.login(request, user)
@@ -38,7 +37,10 @@ def auth_login(request):
 
 
 def auth_login_modal(request):
-    return render(request, 'login-modal.html')
+    return render(request, 'login-modal.html', {
+        'proofspace_client_id': settings.PROOFSPACE_AUTH_CLIENT_ID,
+        'proofspace_redirect_url': settings.PROOFSPACE_AUTH_REDIRECT_URL
+    })
 
 
 @login_required

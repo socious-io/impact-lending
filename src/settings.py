@@ -159,3 +159,9 @@ BLOCKCHAIN_CONTRACT = config.get('crypto', 'contract').upper()
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
 MEDIA_URL = '/photos/'
+
+
+PROOFSPACE_AUTH_REDIRECT_URL = config.get('proofspace_auth', 'redirect_url')
+PROOFSPACE_AUTH_CLIENT_ID = config.get('proofspace_auth', 'client_id')
+PROOFSPACE_AUTH_CLIENT_SECRET = config.get('proofspace_auth', 'client_secret')
+PROOFSPACE_AUTH_URL = 'https://platform.proofspace.id/oauth/token'

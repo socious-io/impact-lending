@@ -1,0 +1,218 @@
+.header-navigation-logged-headernavigation {
+  position: relative;
+  align-items: center;
+}
+.header-navigation-logged-header {
+  width: 100%;
+  display: flex;
+  position: relative;
+  max-width: var(--dl-size-size-maxwidth);
+}
+.header-navigation-logged-navlink {
+  display: contents;
+}
+.header-navigation-logged-logo {
+  text-decoration: none;
+}
+.header-navigation-logged-image {
+  width: 32px;
+  height: 32px;
+}
+.header-navigation-logged-nav {
+  display: flex;
+}
+.header-navigation-logged-left {
+  width: 100%;
+}
+.header-navigation-logged-link2 {
+  align-self: center;
+}
+
+
+
+
+
+
+
+
+
+
+@media(max-width: 991px) {
+  .header-navigation-logged-headernavigation {
+    flex-direction: column;
+  }
+}
+@media(max-width: 767px) {
+  .header-navigation-logged-nav {
+    display: none;
+  }
+}
+
+.footer-footer {
+  background-color: transparent;
+}
+.footer-text {
+  color: var(--dl-color-gray-600);
+  width: auto;
+  height: auto;
+  align-self: stretch;
+  text-align: center;
+  font-stretch: normal;
+}
+
+
+
+
+
+
+
+
+.loan-granted-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: stretch;
+  flex-direction: column;
+}
+.loan-granted-main {
+  width: 100%;
+  background-color: var(--dl-color-gray-25);
+}
+.loan-granted-container1 {
+  gap: 32px;
+  display: flex;
+  max-width: 520px;
+  align-self: center;
+  align-items: center;
+  flex-direction: column;
+}
+.loan-granted-header {
+  gap: 64px;
+  display: flex;
+  padding: 64px 0;
+  overflow: hidden;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.loan-granted-container2 {
+  display: flex;
+  padding: 0 16px;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.loan-granted-content {
+  gap: 32px;
+  width: 343px;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.loan-granted-headingandsupportingtext {
+  gap: 16px;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.loan-granted-headingandsubheading {
+  gap: 12px;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.loan-granted-text {
+  color: var(--dl-color-gray-900);
+  height: auto;
+  align-self: stretch;
+  text-align: center;
+  line-height: 44px;
+}
+.loan-granted-text2 {
+  color: var(--dl-color-gray-600);
+  height: auto;
+  align-self: stretch;
+  text-align: center;
+  line-height: 28px;
+}
+.loan-granted-section {
+  gap: 48px;
+  display: flex;
+  padding: 0 0 64px;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.loan-granted-container3 {
+  gap: 48px;
+  display: flex;
+  padding: 0 16px;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.loan-granted-content1 {
+  gap: 48px;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: column;
+}
+.loan-granted-form {
+  gap: 32px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.loan-granted-actions {
+  gap: 16px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.loan-granted-button {
+  gap: 8px;
+  display: flex;
+  padding: 12px 20px;
+  overflow: hidden;
+  align-self: stretch;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806) ;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(0, 74, 70, 1);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 8px;
+  justify-content: center;
+  background-color: var(--dl-color-primary-600);
+}
+.loan-granted-text3 {
+  color: var(--dl-color-base-white);
+  height: auto;
+  text-align: left;
+  line-height: 24px;
+}
+@media(max-width: 1200px) {
+  .loan-granted-main {
+    width: 100%;
+    max-width: auto;
+    background-color: var(--dl-color-gray-25);
+  }
+}
+@media(max-width: 991px) {
+  .loan-granted-container {
+    align-items: stretch;
+  }
+}
+@media(max-width: 767px) {
+  .loan-granted-container {
+    align-items: stretch;
+  }
+}

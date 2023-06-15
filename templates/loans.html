@@ -1,0 +1,39 @@
+{% extends 'base_user.html' %} {% block statics %}
+<link href="/statics/css/loans.css" rel="stylesheet" />
+{% endblock%} {% block container %}
+<main class="loan-granted-main main-wrapper">
+  <section class="loan-granted-container1 create-project container">
+    <section class="loan-granted-header section-header">
+      <div class="loan-granted-container2">
+        <div class="loan-granted-content">
+          <div class="loan-granted-headingandsupportingtext">
+            <div class="loan-granted-headingandsubheading">
+              <span class="loan-granted-text DisplaymdSemibold">
+                <span>Congratulations</span>
+              </span>
+            </div>
+            <span class="loan-granted-text2 TextlgRegular">
+              You have successfully sent 1000 USDT to Yanick
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="loan-granted-section section-form">
+      <div class="loan-granted-container3">
+        <div class="loan-granted-content1">
+          <div class="loan-granted-form">
+            <div class="loan-granted-actions">
+              <button class="loan-granted-button">
+                <span class="loan-granted-text3 TextmdSemibold">
+                  View my loans
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
+{% endblock %}

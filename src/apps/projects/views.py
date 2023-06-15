@@ -31,6 +31,11 @@ def my_projects(request):
 
 
 @login_required
+def my_loans(request):
+    return render(request, 'loans.html', {})
+
+
+@login_required
 def project_list(request):
     query = request.GET.get('q')
     list = Project.objects.filter(
@@ -117,6 +122,7 @@ def create_project_2(request):
         if project:
             project.loan_amount = form.cleaned_data['loan_amount']
             project.repayment_period = form.cleaned_data['repayment_period']
+            project.reach_goal_amount = project.loan_amount
             project.save()
             return redirect('/projects/create/3')
 

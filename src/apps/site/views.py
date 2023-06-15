@@ -8,7 +8,7 @@ from src.apps.users.models import User
 
 def auth_proofspace(request):
     code = request.GET.get('code', None)
-    res = requests.post(settings.PROOFPSACE_AUTH_URL, params={
+    res = requests.post(settings.PROOFSPACE_AUTH_URL, params={
         'client_id': settings.PROOFSPACE_AUTH_CLIENT_ID,
         'client_secret': settings.PROOFSPACE_AUTH_CLIENT_SECRET,
         'code': code,

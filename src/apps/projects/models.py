@@ -114,7 +114,7 @@ class Withdrawn(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        db_table = 'withrawns'
+        db_table = 'withdrawns'
 
 
 class Lend(models.Model):

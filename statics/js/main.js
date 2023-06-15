@@ -187,7 +187,7 @@ document.getElementById("borrow-action")?.addEventListener("click", async () => 
   const reachGoalAmount = dataset.getAttribute('data-reach-goal-amount');
   const amount = parseInt(dataset.getAttribute('data-amount'));
   if (parseInt(reachGoalAmount) != 0) {
-    return alert('Withrawn action is not valid');
+    return alert('Withdrawn action is not valid');
   }
 
 

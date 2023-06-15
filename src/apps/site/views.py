@@ -15,7 +15,7 @@ def auth_proofspace(request):
         'redirect_uri': settings.PROOFSPACE_AUTH_REDIRECT_URL,
         'grant_type': 'authorization_code'
     })
-    print(res, '----------------------------')
+    print(res.text, '----------------------------', res.status_code)
     user = User.objects.filter(did=code).first()
 
     if not user:

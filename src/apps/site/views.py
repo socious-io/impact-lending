@@ -1,20 +1,24 @@
 import requests
 from django.conf import settings
 from django.contrib import auth
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from src.apps.users.models import User
 
 
 def auth_proofspace(request):
     code = request.GET.get('code', None)
-    res = requests.post(settings.PROOFSPACE_AUTH_URL, params={
+    res = requests.post(settings.PROOFSPACE_AUTH_URL, data={
         'client_id': settings.PROOFSPACE_AUTH_CLIENT_ID,
         'client_secret': settings.PROOFSPACE_AUTH_CLIENT_SECRET,
         'code': code,
         'redirect_uri': settings.PROOFSPACE_AUTH_REDIRECT_URL,
         'grant_type': 'authorization_code'
     })
+
+    if res.status_code > 300:
+        return HttpResponse(res.text, status=res.status_code)
+
     print(res.text, '----------------------------', res.status_code)
     user = User.objects.filter(did=code).first()
 

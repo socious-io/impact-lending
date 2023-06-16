@@ -1,3 +1,4 @@
+import base64
 import requests
 from django.conf import settings
 from django.contrib import auth
@@ -19,14 +20,20 @@ def auth_proofspace(request):
     if res.status_code > 300:
         return HttpResponse(res.text, status=res.status_code)
 
-    print(res.text, '----------------------------', res.status_code)
-    user = User.objects.filter(did=code).first()
+    response = res.json()
+
+    header, payload, signature = response['access_token'].split('.')
+    payload_data = decode_base64(payload)
+
+    did = payload_data['connectDid']
+
+    user = User.objects.filter(did=did).first()
 
     if not user:
         user = User(
-            did=code,
-            access_token=code,
-            refresh_access_token=code
+            did=did,
+            access_token=response['access_token'],
+            refresh_access_token=response['refresh_token']
         )
         user.save()
         auth.login(request, user)
@@ -50,3 +57,10 @@ def auth_login_modal(request):
 @login_required
 def index(request):
     return redirect('/projects/list')
+
+
+def decode_base64(base64_message):
+    base64_bytes = base64_message.encode('ascii')
+    message_bytes = base64.urlsafe_b64decode(base64_bytes + b'===')
+    message = message_bytes.decode('ascii')
+    return message

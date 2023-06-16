@@ -120,7 +120,7 @@ document.getElementById("lend-amount")?.addEventListener("input", async (el) => 
   const monthlyGain = Math.ceil(orginalMonthly * 0.65) / 100;
   document.getElementById("lend-amount-data").innerText = amount;
   document.getElementById("monthly-gain").innerText = monthlyGain || 0;
-  document.getElementById("total-payback").innerText = (Math.ceil((monthlyGain * repaymentPeriod) * 100 * 12) / 100) + amount  || 0;
+  document.getElementById("total-payback").innerText = (Math.ceil((monthlyGain * repaymentPeriod) * 100) / 100) + amount  || 0;
 
 })
 

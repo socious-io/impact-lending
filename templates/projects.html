@@ -24,14 +24,24 @@
         <div class="projects-search-inputdropdown">
           <div class="projects-search-inputwithlabel">
             <form method='GET' class="projects-search-textinput">
-            <input
-              name="q"
-              value="{{query}}"
-              type="text"
-              placeholder="Keyword"
-              class="projects-search-textinput input TextmdRegular"
-            />
+              <input
+                name="q"
+                value="{{query}}"
+                type="text"
+                placeholder="Keyword"
+                class="projects-search-textinput input TextmdRegular"
+              />
             </form>
+            {% if query %}
+            <a
+              href="/projects/list"
+              class="projects-search-button1 TextmdSemibold button"
+            >
+              <span class="TextmdSemibold">
+                <span>Back</span>
+              </span>
+            </a>
+            {% endif %}
           </div>
         </div>
       </div>

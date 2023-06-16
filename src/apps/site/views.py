@@ -1,4 +1,5 @@
 import base64
+import json
 import requests
 from django.conf import settings
 from django.contrib import auth
@@ -22,10 +23,10 @@ def auth_proofspace(request):
 
     response = res.json()
 
-    header, payload, signature = response['access_token'].split('.')
-    payload_data = decode_base64(payload)
-
-    did = payload_data['connectDid']
+    payloads = response['access_token'].split('.')
+    payload_data = decode_base64(payloads[1])
+    payload_json = json.loads(payload_data)
+    did = payload_json['connectDid']
 
     user = User.objects.filter(did=did).first()
 

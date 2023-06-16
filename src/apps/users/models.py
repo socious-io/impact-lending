@@ -8,8 +8,8 @@ from django_countries.fields import CountryField
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     did = models.CharField(max_length=250, unique=True)
-    access_token = models.CharField(max_length=512, unique=True)
-    refresh_access_token = models.CharField(max_length=512, unique=True)
+    access_token = models.TextField(unique=True)
+    refresh_access_token = models.TextField(unique=True)
     country = CountryField(null=True)
 
     class Meta:

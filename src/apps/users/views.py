@@ -1,6 +1,4 @@
-# from requests import post
-from django.contrib import auth
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
 
@@ -19,7 +17,7 @@ def update_profile(request):
         user.last_name = form.cleaned_data['last_name']
         user.country = form.cleaned_data['country']
         user.save()
-        return render(request, 'update_profile.html', {'form': form})
+        return redirect('/projects/list')
 
     form = ProfileForm(initial={
         'username': user.username,

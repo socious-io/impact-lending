@@ -14,7 +14,7 @@ import configparser
 from pathlib import Path
 
 config = configparser.ConfigParser()
-config.read('config.cnf')
+config.read(os.environ.get('CONFIG', 'config.cnf'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +38,7 @@ CSRF_TRUSTED_ORIGINS = ['https://lending.socious.io',
 
 ALLOWED_HOSTS = [
     'lending.socious.io',
+    'lending.dev.socious.io',
     'localhost'
 ]
 

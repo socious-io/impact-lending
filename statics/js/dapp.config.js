@@ -55,7 +55,7 @@ export const dappConfig= {
   testnet: [
     {
       chain: milkomedaTestnet,
-      contract: '0x99E4D5E1e5C19fbf7c671445BDcc1C8C2aa99885',
+      contract: '0x635488d12ecCBdD140C61d952804b1CDA9a48794',
       tokens: [
         {
           name: 'USDC',
@@ -202,6 +202,31 @@ export const dappConfig= {
         "type": "event"
       },
       {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "fee",
+            "type": "uint256"
+          }
+        ],
+        "name": "RepaymentAction",
+        "type": "event"
+      },
+      {
         "inputs": [
           {
             "internalType": "contract IERC20",
@@ -246,6 +271,11 @@ export const dappConfig= {
             "type": "uint256"
           },
           {
+            "internalType": "uint256",
+            "name": "_repaymentPeriod",
+            "type": "uint256"
+          },
+          {
             "internalType": "contract IERC20",
             "name": "_token",
             "type": "address"
@@ -277,6 +307,19 @@ export const dappConfig= {
       {
         "inputs": [],
         "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "_projectId",
+            "type": "string"
+          }
+        ],
+        "name": "repayment",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -322,6 +365,40 @@ export const dappConfig= {
           {
             "internalType": "uint256",
             "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "lendersPaybacks",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "lenderAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fee",
             "type": "uint256"
           }
         ],
@@ -396,6 +473,11 @@ export const dappConfig= {
             "type": "uint256"
           },
           {
+            "internalType": "uint256",
+            "name": "repaymentPeriod",
+            "type": "uint256"
+          },
+          {
             "internalType": "enum Lending.Status",
             "name": "status",
             "type": "uint8"
@@ -404,6 +486,35 @@ export const dappConfig= {
             "internalType": "contract IERC20",
             "name": "token",
             "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "repayments",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "projectId",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fee",
+            "type": "uint256"
           }
         ],
         "stateMutability": "view",

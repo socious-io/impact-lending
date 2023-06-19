@@ -196,6 +196,16 @@
                     </span>
                   </a>
                   {% endif %}
+                  {% if project.user == request.user and project.status == 'COMPLETE' %}
+                  <a
+                    href="/projects/{{project.id}}/payback"
+                    class="project-details-button1 TextmdSemibold button"
+                  >
+                    <span class="project-details-text35 TextmdSemibold">
+                      <span>Payback</span>
+                    </span>
+                  </a>
+                  {% endif %}
                 </div>
               </div>
             </div>

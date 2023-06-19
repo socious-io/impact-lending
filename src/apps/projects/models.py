@@ -41,11 +41,12 @@ class Project(models.Model):
 
     @property
     def monthly_payback_amount(self):
-        return math.ceil(self.loan_amount / self.repayment_period * 100 * self.RATE) / 100
+        orgin = self.loan_amount / self.repayment_period
+        return math.ceil((orgin + (orgin * 1.3 / 100)) * 100) / 100
 
     @property
     def total_payback_amount(self):
-        return math.ceil(self.loan_amount * 100 * self.RATE) / 100
+        return math.ceil(self.monthly_payback_amount * self.repayment_period * 100) / 100
 
     @property
     def reach_goal_percent(self):

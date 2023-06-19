@@ -2,7 +2,7 @@
 <link href="/statics/css/connect-wallet.css" rel="stylesheet" />
 {% endblock%} {% block container %}
 {% csrf_token %}
-<div id='project-data' data-id="{{project.id}}" data-amount="{{project.loan_amount}}"></div> 
+<div id='project-data' data-id="{{project.id}}" data-amount="{{project.loan_amount}}" data-repayment-period="{{project.repayment_period}}"></div> 
 <main class="login-login main-wrapper">
   <div class="section-header">
     <div class="connect-wallet-step1-textandsupportingtext">

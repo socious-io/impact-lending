@@ -84,13 +84,14 @@ createProjectBtn?.addEventListener("click", async () => {
   if (!account.isConnected) return alert('Please connect your wallet first');
   const dataset = document.getElementById("project-data");
   const id = dataset.getAttribute('data-id');
-  const amount = dataset.getAttribute('data-amount');
+  const amount = web3.utils.toWei(dataset.getAttribute('data-amount'));
+  const repaymentPeriod = dataset.getAttribute('data-repayment-period');
 
   const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
 
   try {
     await contract.methods
-      .createProject(id, amount, networks[0].tokens[0].address)
+      .createProject(id, amount, repaymentPeriod, networks[0].tokens[0].address)
       .send({from: account.address});
   } catch(err) {
     processingDone();
@@ -176,7 +177,7 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
   
   window.location = `/projects/${id}`;
 
-})
+});
 
 document.getElementById("borrow-action")?.addEventListener("click", async () => {
   processing();
@@ -196,7 +197,7 @@ document.getElementById("borrow-action")?.addEventListener("click", async () => 
   let txHash = '';
 
   try {
-
+    
     const trx = await contract.methods
       .borrow(id)
       .send({from: account.address});
@@ -221,6 +222,40 @@ document.getElementById("borrow-action")?.addEventListener("click", async () => 
   }
   
   window.location = `/projects/${id}`;
+
+});
+
+document.getElementById("payback-action")?.addEventListener("click", async () => {
+  processing();
+  const account = getAccount();
+  if (!account.isConnected) return alert('Please connect your wallet first');
+  const dataset = document.getElementById("project-data");
+  const id = dataset.getAttribute('data-id');
+  const monthlyPayback = dataset.getAttribute('data-monthly-payback');
+  
+  const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
+  const tokenContract = new web3.eth.Contract(dappConfig.abis.token, networks[0].tokens[0].address);
+  let txHash = '';
+  const amount = web3.utils.toWei(monthlyPayback);
+  try {
+    
+    await tokenContract.methods
+      .approve(networks[0].contract, amount)
+      .send({ from: account.address });
+
+    const trx = await contract.methods
+      .repayment(id)
+      .send({from: account.address});
+      
+    txHash = trx.transactionHash;
+
+  } catch(err) {
+    processingDone();
+    return alert(err.message);
+  }
+
+  alert('Payback submitted successfully');
+  processingDone();
 
 })
 

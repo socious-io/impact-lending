@@ -212,3 +212,9 @@ def withdrawn(request, project_id):
         return HttpResponse('OK')
 
     return render(request, 'withdrawn.html', {'project': project})
+
+
+@login_required
+def payback(request, project_id):
+    project = Project.objects.get(id=project_id)
+    return render(request, 'payback.html', {'project': project})

@@ -68,7 +68,7 @@ export const dappConfig= {
   mainet: [
     {
       chain: milkomeda,
-      contract: 'LENDING SMART CONTRACT',
+      contract: '0xb93c65Cd49Fb6303Baa3465eE4d3C95019dD5c7D',
       tokens: [
         {
           name: 'USD Coin',

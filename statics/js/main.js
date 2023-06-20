@@ -7,7 +7,7 @@ import {
 } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/html";
 import { configureChains, createConfig } from "@wagmi/core";
-import { getAccount, watchAccount } from '@wagmi/core'
+import { getAccount, watchAccount, switchNetwork } from '@wagmi/core'
 import { dappConfig } from './dapp.config.v2'
 import {walletConnectedView, walletDisconnectedView} from './view'
 
@@ -18,7 +18,6 @@ let web3;
 const networks = document.getElementById("dapp-env").getAttribute('data-dapp-env') === 'mainet' ? dappConfig.mainet : dappConfig.testnet;
 const projectId = dappConfig.walletConnetProjectId;
 const chains = networks.map((n) => n.chain);
-
 
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 const wagmiConfig = createConfig({
@@ -34,6 +33,7 @@ const connectDiv = document.getElementById("wallet-connect");
 const createProjectBtn = document.getElementById("create-project")
 
 const connect = async (account) => {
+  await switchNetwork({chainId: chains[0].id})
   const provider = await account.connector.getProvider();
   web3 = new Web3(provider);
   if (connectDiv) {

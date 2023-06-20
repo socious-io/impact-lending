@@ -33,8 +33,11 @@ const connectDiv = document.getElementById("wallet-connect");
 const createProjectBtn = document.getElementById("create-project")
 
 const connect = async (account) => {
-  await switchNetwork({chainId: chains[0].id})
-  const provider = await account.connector.getProvider();
+  let provider = await account.connector.getProvider();
+  const filtered = chains.filter(c => c.id == parseInt(provider.networkVersion))[0]
+  
+  if (!filtered) await switchNetwork({chainId: chains[0].id});
+  
   web3 = new Web3(provider);
   if (connectDiv) {
     connectDiv.innerHTML = walletConnectedView(account.address);
@@ -46,6 +49,7 @@ const connect = async (account) => {
 }
 
 const disconnect = async () => {
+  console.log(connectDiv, '-----')
   if (connectDiv) {
     connectDiv.innerHTML = walletDisconnectedView;
     document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {

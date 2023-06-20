@@ -8,7 +8,7 @@ import {
 import { Web3Modal } from "@web3modal/html";
 import { configureChains, createConfig } from "@wagmi/core";
 import { getAccount, watchAccount } from '@wagmi/core'
-import { dappConfig } from './dapp.config'
+import { dappConfig } from './dapp.config.v2'
 import {walletConnectedView, walletDisconnectedView} from './view'
 
 axios.defaults.xsrfCookieName = 'csrftoken';

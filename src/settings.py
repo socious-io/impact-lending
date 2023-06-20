@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'src.global.vars',
             ],
         },
     },
@@ -158,6 +159,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 BLOCKCHAIN_EXPELORER = config.get('crypto', 'expelorer')
 BLOCKCHAIN_TOKENS = config.get('crypto', 'tokens').upper().split(',')
 BLOCKCHAIN_CONTRACT = config.get('crypto', 'contract').upper()
+
+DAPP_ENV = config.get('crypto', 'env') or 'mainet'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
 MEDIA_URL = '/photos/'

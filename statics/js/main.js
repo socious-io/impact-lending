@@ -15,7 +15,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 let web3;
-const networks = process.env.DAPP_ENV === 'mainet' ? dappConfig.mainet : dappConfig.testnet;
+const networks = document.getElementById("dapp-env").getAttribute('data-dapp-env') === 'mainet' ? dappConfig.mainet : dappConfig.testnet;
 const projectId = dappConfig.walletConnetProjectId;
 const chains = networks.map((n) => n.chain);
 

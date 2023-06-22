@@ -25,7 +25,7 @@ const milkomedaTestnet = {
 };
 
 const milkomeda = {
-  id: 2002,
+  id: 2001,
   name: 'Milkomeda',
   network: 'Milkomeda',
   nativeCurrency: {
@@ -35,43 +35,19 @@ const milkomeda = {
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc-mainnet-algorand-rollup.a1.milkomeda.com'],
+      http: ['https://rpc-mainnet-cardano-evm.c1.milkomeda.com/'],
     },
     public: {
-      http: ['https://rpc-mainnet-algorand-rollup.a1.milkomeda.com'],
+      http: ['https://rpc-mainnet-cardano-evm.c1.milkomeda.com/'],
     },
   },
   blockExplorers: {
     default: {
       name: 'Explorer',
-      url: 'https://explorer-mainnet-algorand-rollup.a1.milkomeda.com',
+      url: 'https://explorer-mainnet-cardano-evm.c1.milkomeda.com/',
     },
   },
 };
-
-const milkomedaProvider = {
-  chainId: '2002',
-  chainName: 'Milkomeda',
-  nativeCurrency: {
-    name: 'MILKADA',
-    symbol: 'MILKADA',
-    decimals: 18
-  },
-  rpcUrls: ['https://rpc-mainnet-algorand-rollup.a1.milkomeda.com'],
-  blockExplorerUrls: ['https://explorer-mainnet-algorand-rollup.a1.milkomeda.com']
-}
-
-const milkomedaTestnetProvider = {
-  chainId: '200101',
-  chainName: 'Milkomeda Testnet',
-  nativeCurrency: {
-    name: 'MILKTADA',
-    symbol: 'MILKTADA',
-    decimals: 18
-  },
-  rpcUrls: ['https://rpc-devnet-cardano-evm.c1.milkomeda.com'],
-  blockExplorerUrls: ['https://explorer-devnet-cardano-evm.c1.milkomeda.com']
-}
 
 
 export const dappConfig= {
@@ -79,7 +55,6 @@ export const dappConfig= {
   testnet: [
     {
       chain: milkomedaTestnet,
-      chainProvider: milkomedaTestnetProvider,
       contract: '0x635488d12ecCBdD140C61d952804b1CDA9a48794',
       tokens: [
         {
@@ -93,8 +68,7 @@ export const dappConfig= {
   mainet: [
     {
       chain: milkomeda,
-      chainProvider: milkomedaProvider,
-      contract: '0xb93c65Cd49Fb6303Baa3465eE4d3C95019dD5c7D',
+      contract: '0x2Bdf475Bf5353cF52Aa4339A0FA308B4e1e22C3A',
       tokens: [
         {
           name: 'USD Coin',

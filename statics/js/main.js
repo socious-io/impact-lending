@@ -49,7 +49,6 @@ const connect = async (account) => {
 }
 
 const disconnect = async () => {
-  console.log(connectDiv, '-----')
   if (connectDiv) {
     connectDiv.innerHTML = walletDisconnectedView;
     document.getElementById("wallet-connect-btn")?.addEventListener("click", () => {

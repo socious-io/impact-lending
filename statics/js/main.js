@@ -155,7 +155,7 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
 
   try {
     await tokenContract.methods
-      .approve(networks[0].contract, `${lendAmount}`)
+      .approve(networks[0].contract, `${amount}`)
       .send({ from: account.address });
 
 

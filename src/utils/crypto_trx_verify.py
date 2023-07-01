@@ -41,7 +41,7 @@ def verify_transaction(src, dest, amount, tx_hash, retry=0) -> bool:
         print('tx %s => receiver could not verified' % tx_hash)
         return False
 
-    if int(transaction.get('value')) / 1e18 < int(amount):
+    if int(transaction.get('value')) / 1e6 < int(amount):
         print('tx %s => amount could not verified' % tx_hash)
         return False
 

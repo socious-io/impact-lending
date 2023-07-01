@@ -142,17 +142,20 @@ document.getElementById("lend-action")?.addEventListener("click", async () => {
     processingDone();
     return alert('lending amount is not valid');
   }
-
-  const amount = web3.utils.toWei(lendAmount);
-
+  
   const contract = new web3.eth.Contract(dappConfig.abis.lending, networks[0].contract);
   const tokenContract = new web3.eth.Contract(dappConfig.abis.token, networks[0].tokens[0].address);
+
+  const decimals = await tokenContract.methods.decimals().call()
+  const amount = web3.utils.toBN(lendAmount).mul(web3.utils.toBN(Math.pow(10, decimals))).toString();
+  
   
   let txHash = '';
+  
 
   try {
     await tokenContract.methods
-      .approve(networks[0].contract, amount)
+      .approve(networks[0].contract, `${lendAmount}`)
       .send({ from: account.address });
 
 

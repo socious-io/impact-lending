@@ -50,7 +50,7 @@ class Project(models.Model):
 
     @property
     def reach_goal_percent(self):
-        return 100 - ((self.reach_goal_amount * 100) / self.loan_amount)
+        return math.ceil(100 - ((self.reach_goal_amount * 100) / self.loan_amount))
 
     @property
     def live_remains(self):
